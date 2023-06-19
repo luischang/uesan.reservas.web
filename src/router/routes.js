@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: "/",
+    path: "/dashboard",
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/IndexPage.vue") },
@@ -18,6 +18,25 @@ const routes = [
   {
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),
+  },
+
+  {
+    path: "/Login",
+    component: () => import("components/auth/LoginForm.vue"),
+  },
+
+  {
+    path: "/Mision&Vision",
+    component: () => import("pages/Empresa.vue"),
+  },
+
+  {
+    path: "/PubliComercial",
+    component: () => import("pages/PublicidadComercial.vue"),
+  },
+  {
+    path: "/SalaEventos",
+    component: () => import("pages/SalaEventos.vue"),
   },
 ];
 
