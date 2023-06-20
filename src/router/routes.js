@@ -10,6 +10,7 @@ const routes = [
         path: "publicidadComercial",
         component: () => import("pages/PublicidadComercial.vue"),
       },
+      { path: "confirmacionPago", component: () => import("pages/ConfirmacionPago.vue") },
     ],
   },
 
@@ -42,6 +43,10 @@ const routes = [
     path: "/SalaEventos",
     component: () => import("pages/SalaEventos.vue"),
   },
+  {
+    path: "/ConfirmacionPago",
+    component: () => import("pages/ConfirmacionPago.vue"),
+  }
 ];
 
 export default routes;
