@@ -24,6 +24,10 @@ const routes = [
     path: "/Login",
     component: () => import("components/auth/LoginForm.vue"),
   },
+  {
+    path: "/register",
+    component: () => import("components/auth/RegisterForm.vue"),
+  },
 
   {
     path: "/Mision&Vision",

@@ -36,7 +36,10 @@
           Ingresar
         </button>
         <p class="register-link">
-          ¿No tienes una cuenta? <a href="/registrarse">Registrarse</a>
+          ¿No tienes una cuenta?
+          <a href="http://localhost:9000/?#/register" onclick="redireccionar()"
+            >Registrarse</a
+          >
         </p>
         <div id="notification-container" class="notification"></div>
       </form>
@@ -128,6 +131,7 @@ label {
   border-radius: 5px;
   width: 350px;
   text-align: left;
+  font-family: "Exo";
 }
 
 .login-button {
@@ -168,7 +172,7 @@ label {
   position: absolute;
 }
 .underlined {
-  border-bottom: 4px solid #fff;
+  border-bottom: 3px solid #fff;
   color: white;
 }
 
@@ -275,7 +279,7 @@ export default {
             100
           );
           setTimeout(() => {
-            // Verificar si el correo electrónico termina en "@admin"
+            // Verificar si el correo electrónico es "@admin"
             if (response.data.idTipo === 2) {
               this.$router.push("/admin-dashboard");
             } else {
@@ -288,6 +292,10 @@ export default {
           localStorage.removeItem("userResult");
           this.showNotification("Ocurrió un error", "red", "top", 2000);
         });
+    },
+    redireccionar: function () {
+      // Redireccionar al usuario a la página de inicio de sesión
+      window.location.href = "http://localhost:9000/?#/register";
     },
   },
 };
