@@ -22,7 +22,7 @@ export default {
           id: 1,
           titulo: "Oferta especial de verano",
           descripcion:
-            "¡Reserva ahora y obtén un descuento del 20% en nuestras habitaciones de lujo!" +
+            "¡Reserva ahora y obtén un descuento del 20% en nuestras habitaciones de lujo! " +
             "No pierdas la oportunidad de vivir unas vacaciones inolvidables en nuestro hotel durante esta temporada de verano. ¡Reserva ahora y aprovecha nuestra oferta especial de verano antes de que se agoten las plazas!",
           imagen:
             "https://www.turisapps.com/public/www/images/blog-post/41.jpg?v=20150612120526",
@@ -52,18 +52,21 @@ export default {
   },
   methods: {
     irAlDashboard() {
-      this.$router.push("/");
+      this.$router.push("/login");
     },
   },
 };
 </script>
 
 <style scoped>
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+
 .ad-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
+  font-family: "Exo";
   color: #333;
   background-color: #eabe7c;
 }
@@ -82,7 +85,9 @@ h2 {
 }
 
 .ad-image {
-  width: 200px;
+  width: 240px;
+  height: 200px;
+  margin-top: 80px;
   margin-right: 20px;
 }
 
@@ -99,6 +104,7 @@ h3 {
 p {
   margin-bottom: 10px;
   font-size: 18px;
+  text-align: justify;
 }
 
 .ad-link {
