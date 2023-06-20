@@ -1,6 +1,9 @@
 <template>
   <div class="page-container">
     <div class="background-image"></div>
+    <boton @click="set_inicio" class="button-corner animated-text"
+      >Inicio</boton
+    >
     <h1 class="center-text animated-text">
       SITE <span class="underlined animated-text">RESERVAS</span>
     </h1>
@@ -37,9 +40,7 @@
         </button>
         <p class="register-link">
           ¿No tienes una cuenta?
-          <a href="http://localhost:9000/?#/register" onclick="redireccionar()"
-            >Registrarse</a
-          >
+          <a @click="redireccionar">Registrarse</a>
         </p>
         <div id="notification-container" class="notification"></div>
       </form>
@@ -78,6 +79,21 @@
   height: 100%;
   overflow: hidden;
   z-index: -1;
+}
+.button-corner {
+  position: absolute;
+  top: 20px;
+  left: 45px;
+  padding: 10px;
+  background-color: #eabe7c;
+  border-radius: 3px;
+  font-family: "Exo";
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+.button-corner:hover {
+  background-color: #d9dd92;
 }
 .login-container {
   max-width: 500px;
@@ -139,7 +155,7 @@ label {
   background-color: #eabe7c;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
   font-size: 20px;
   font-weight: 25px;
@@ -179,12 +195,12 @@ label {
 .animated-text {
   display: inline-block;
   opacity: 0;
-  animation: textFadeIn 1s ease-in-out forwards;
+  animation: textFadeIn 1.1s ease-in-out forwards;
 }
 .animated-container {
   opacity: 0;
   transform: translateY(20px);
-  animation: containerFadeIn 1s ease-in-out forwards;
+  animation: containerFadeIn 1.1s ease-in-out forwards;
 }
 
 @keyframes textFadeIn {
@@ -261,6 +277,9 @@ export default {
         document.body.removeChild(notification);
       }, timeout);
     },
+    set_inicio: function () {
+      this.$router.push("/dashboard");
+    },
     login: function () {
       var url = "http://localhost:5023/api/Usuario/SignIn";
       var data = {
@@ -280,7 +299,7 @@ export default {
           );
           setTimeout(() => {
             // Verificar si el correo electrónico es "@admin"
-            if (response.data.idTipo === 2) {
+            if (response.data.idTipo === 1) {
               this.$router.push("/admin-dashboard");
             } else {
               this.$router.push("/dashboard");
@@ -293,9 +312,10 @@ export default {
           this.showNotification("Ocurrió un error", "red", "top", 2000);
         });
     },
-    redireccionar: function () {
+    redireccionar() {
       // Redireccionar al usuario a la página de inicio de sesión
-      window.location.href = "http://localhost:9000/?#/register";
+      //window.location.href = "http://localhost:9000/?#/register";
+      this.$router.push("/register");
     },
   },
 };
