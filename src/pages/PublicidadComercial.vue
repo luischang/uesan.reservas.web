@@ -1,5 +1,6 @@
 <template>
   <div class="ad-container">
+    <div class="background-all"></div>
     <button class="home-button" @click="irAlDashboard">Home</button>
     <h2>Publicidad e Información Comercial</h2>
     <div v-for="anuncio in anuncios" :key="anuncio.id" class="ad">
@@ -60,22 +61,48 @@ export default {
 
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+/* .page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}*/
+
+.background-all {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./src/assets/fondo3.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  z-index: -1;
+}
 
 .ad-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 40px;
-  /* font-family: "Poppins", sans-serif; */
   font-family: "Exo";
   color: #333;
-  background-color: #eabe7c;
+  position: center;
+  background-color: rgba(290, 180, 160, 0.7);
+  /* background-color: #fdf5f0; */
+
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 80px;
+  margin-bottom: 100px;
 }
 
 h2 {
   text-align: center;
   font-weight: bold;
-  color: #333;
-  font-size: 24px;
+  color: #462c22;
+  font-size: 26px;
   margin-bottom: 20px;
 }
 
@@ -87,7 +114,7 @@ h2 {
 .ad-image {
   width: 240px;
   height: 200px;
-  margin-top: 80px;
+  margin-top: 60px;
   margin-right: 20px;
 }
 
@@ -99,11 +126,12 @@ h3 {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 10px;
+  color: #462c22;
 }
 
 p {
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 20px;
   text-align: justify;
 }
 
@@ -115,7 +143,7 @@ p {
   position: absolute;
   top: 60px;
   right: 20px;
-  background-color: #e06e43;
+  background-color: #ff5c00;
   color: #fff;
   border: none;
   padding: 8px 16px;

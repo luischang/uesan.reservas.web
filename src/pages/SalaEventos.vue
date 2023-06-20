@@ -1,5 +1,6 @@
 <template>
   <div class="event-rooms-container">
+    <div class="background-all"></div>
     <button class="home-button" @click="irAlDashboard">Home</button>
     <h2>Salas de Eventos</h2>
     <div v-for="sala in salas" :key="sala.id" class="event-room">
@@ -73,51 +74,70 @@ export default {
 
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+
+.background-all {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./src/assets/fondo3.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  z-index: -1;
+}
 .event-rooms-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 40px;
   /* font-family: "Poppins", sans-serif; */
   font-family: "Exo";
-  color: #333;
-  background-color: #eabe7c;
+  color: #462c22;
+  /* background-color: #fdf5f0; */
+  background-color: rgba(290, 180, 160, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
 
 .event-room {
   display: flex;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   align-items: center;
 }
 
 .event-room-image {
-  width: 200px;
+  width: 240px;
   margin-right: 5px;
   position: left;
 }
 
 .event-room-image img {
-  width: 100%;
-  height: auto;
+  width: 120%;
+  height: 150%;
   margin-top: 80px;
+  border-radius: 10px;
 }
 
 .event-room-details {
   color: #fff;
-  width: 550px;
-  margin-left: 20px;
+  width: 700px;
+  margin-left: 55px;
 }
 
 h2 {
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #462c22;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 h3 {
   font-weight: bold;
-  color: #333;
+  color: #462c22;
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -128,21 +148,14 @@ p {
   line-height: 1.6;
   position: right;
   text-align: justify;
+  font-size: 20px;
 }
 
-button {
-  background-color: #e06e43;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-}
 .home-button {
   position: absolute;
   top: 60px;
   right: 20px;
-  background-color: #e06e43;
+  background-color: #ff5c00;
   color: #fff;
   border: none;
   padding: 8px 16px;
