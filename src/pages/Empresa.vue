@@ -6,6 +6,7 @@
       <div class="contenido contenido-mision">
         <img class="imagen" src="https://1.bp.blogspot.com/-OtWV__nesfE/WbzAZzOan9I/AAAAAAAAA1g/D5inpZNZP_kHsAQ2BDgGv2ZBx3xRNTEXwCLcBGAs/s1600/buear_phototour21.jpg" alt="Misión de la Empresa">
         <p class="parrafo">Nuestra misión es brindar a nuestros clientes una experiencia de reserva eficiente, conveniente y confiable. Nos esforzamos por simplificar el proceso de reserva, ya sea para viajes, alojamiento, eventos u otras actividades, proporcionando un servicio de alta calidad y una plataforma fácil de usar. Nuestro objetivo es superar las expectativas de nuestros clientes y convertirnos en su opción preferida para todas sus necesidades de reserva.</p>
+        <button class="boton-regresar" @click="goToInicio">Regresar al inicio</button>
       </div>
     </div>
 
@@ -28,14 +29,22 @@
     <q-footer class="footer">
       <p class="derechos">Derechos de autor © 2023. Nombre de la Empresa de Reservas. Todos los derechos reservados.</p>
     </q-footer>
+
+    <button class="boton-regresar" @click="goToInicio">Regresar al inicio</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'EmpresaDeReservas'
+  name: 'EmpresaDeReservas',
+  methods: {
+    goToInicio() {
+      this.$router.push('/dashboard');
+    }
+  }
 }
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap');
@@ -115,7 +124,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://3.bp.blogspot.com/-TRrG-JCBQ_E/WhdHaxEzQUI/AAAAAAAABIM/S6Aahq1ETh0wMJJ2MTNcFz_zQJXKW-feQCLcBGAs/s320/116.png');
+  background-image: url('https://images.vexels.com/content/126394/preview/flat-travel-luggage-backdrop-57fc02.png');
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -1;
@@ -139,4 +148,19 @@ body {
   padding: 20px;
   border-radius: 5px;
 }
+
+.boton-regresar {
+  position: absolute;
+  top: 5px;
+  right: -10px;
+  padding: 10px;
+  background-color: #ff5c00;
+  color: white;
+  border: none;
+  font-family: "Exo";
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 </style>

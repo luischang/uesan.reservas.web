@@ -11,6 +11,7 @@ const routes = [
         component: () => import("pages/PublicidadComercial.vue"),
       },
       { path: "confirmacionPago", component: () => import("pages/ConfirmacionPago.vue") },
+      { path: "serviciosAdicionales", component: () => import("pages/ServiciosAdicionales.vue") },
     ],
   },
 
@@ -46,6 +47,10 @@ const routes = [
   {
     path: "/ConfirmacionPago",
     component: () => import("pages/ConfirmacionPago.vue"),
+  },
+  {
+    path: "/ServiciosAdicionales",
+    component: () => import("pages/ServiciosAdicionales.vue"),
   }
 ];
 
