@@ -17,7 +17,6 @@ const routes = [
         path: "confirmacionPago",
         component: () => import("pages/ConfirmacionPago.vue"),
       },
-      { path: "", component: () => import("pages/IndexPage.vue") },
     ],
   },
 
@@ -35,6 +34,24 @@ const routes = [
   {
     path: "/register",
     component: () => import("components/auth/RegisterForm.vue"),
+  },
+
+  {
+    path: "/Mision&Vision",
+    component: () => import("pages/Empresa.vue"),
+  },
+
+  {
+    path: "/PubliComercial",
+    component: () => import("pages/PublicidadComercial.vue"),
+  },
+  {
+    path: "/SalaEventos",
+    component: () => import("pages/SalaEventos.vue"),
+  },
+  {
+    path: "/ConfirmacionPago",
+    component: () => import("pages/ConfirmacionPago.vue"),
   },
 ];
 
