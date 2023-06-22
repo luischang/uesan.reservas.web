@@ -247,7 +247,7 @@ export default {
       }, timeout);
     },
     set_inicio: function () {
-      this.$router.push("/dashboard");
+      this.$router.push("/");
     },
     submitForm() {
       var url = "http://localhost:5023/api/Usuario/SignUp";

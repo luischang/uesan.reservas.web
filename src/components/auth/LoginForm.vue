@@ -278,7 +278,7 @@ export default {
       }, timeout);
     },
     set_inicio: function () {
-      this.$router.push("/dashboard");
+      this.$router.push("/");
     },
     login: function () {
       var url = "http://localhost:5023/api/Usuario/SignIn";
