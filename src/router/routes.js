@@ -6,6 +6,11 @@ const routes = [
       { path: "", component: () => import("pages/IndexPage.vue") },
       { path: "empresa", component: () => import("pages/Empresa.vue") },
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
+      { path: "galeria", component: () => import("pages/Galeria.vue") },
+      {
+        path: "politicaPrivacidad",
+        component: () => import("pages/PoliticaPrivacidad.vue"),
+      },
       {
         path: "publicidadComercial",
         component: () => import("pages/PublicidadComercial.vue"),
@@ -37,6 +42,14 @@ const routes = [
   {
     path: "/SalaEventos",
     component: () => import("pages/SalaEventos.vue"),
+  },
+  {
+    path: "/Galeria",
+    component: () => import("pages/Galeria.vue"),
+  },
+  {
+    path: "/PoliticaPrivacidad",
+    component: () => import("pages/PoliticaPrivacidad.vue"),
   },
 ];
 

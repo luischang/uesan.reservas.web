@@ -1,16 +1,5 @@
 <template>
-  <div class="ad-container">
-    <button class="home-button" @click="irAlDashboard">Home</button>
-    <h2>Publicidad e Información Comercial</h2>
-    <div v-for="anuncio in anuncios" :key="anuncio.id" class="ad">
-      <img :src="anuncio.imagen" :alt="anuncio.titulo" class="ad-image" />
-      <div class="ad-details">
-        <h3>{{ anuncio.titulo }}</h3>
-        <p>{{ anuncio.descripcion }}</p>
-        <a :href="anuncio.enlace" class="ad-link">Más información</a>
-      </div>
-    </div>
-  </div>
+  <div class="ad-container"></div>
 </template>
 
 <script>
