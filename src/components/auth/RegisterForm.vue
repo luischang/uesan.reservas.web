@@ -21,7 +21,7 @@
         <div class="form-group">
           <label for="contraseña">Contraseña:</label>
           <input
-            type="text"
+            type="password"
             id="contraseña"
             v-model="form.contraseña"
             required
@@ -250,6 +250,22 @@ export default {
       this.$router.push("/");
     },
     submitForm() {
+      const hasNumber = /\d/.test(this.form.contraseña); // Verificar si hay al menos un número
+      const hasUpperCase = /[A-Z]/.test(this.form.contraseña); // Verificar si hay al menos una letra mayúscula
+
+      console.log(hasNumber);
+      console.log(hasUpperCase);
+
+      if (!hasNumber || !hasUpperCase) {
+        // Mostrar una notificación de error si no cumple con los requisitos
+        this.showNotification(
+          "La contraseña debe contener al menos un número y una letra mayúscula",
+          "red",
+          "top",
+          2000
+        );
+        return; // Detener el proceso de inicio de sesión
+      }
       var url = "http://localhost:5023/api/Usuario/SignUp";
 
       axios

@@ -58,6 +58,28 @@
         <p class="Testimonial_espacio"></p>
       </div>
     </div>
+
+    <div>
+      <!-- Botón para abrir la ventana emergente -->
+      <!-- Ventana emergente -->
+      <Modal v-if="showModal">
+        <div @click="set_login">
+          <h3>Ofertas Unicas</h3>
+          <ul>
+            <li v-for="oferta in ofertas" :key="oferta.id">
+              <p>{{ oferta.descripcion }}</p>
+              <p>Descuento en soles: {{ oferta.descuento }}</p>
+              <p>Empieza: {{ formatDate(oferta.fechaIni) }}</p>
+              <p>Termina: {{ formatDate(oferta.fechaFin) }}</p>
+            </li>
+          </ul>
+        </div>
+        <button @click="closeModal" class="for-buttonModal">
+          Cerrar ventana emergente
+        </button>
+      </Modal>
+    </div>
+
     <div class="footer-container">
       <div class="footer-content">
         <p>Todos los derechos reservados &copy; 2023 Site Reservas</p>
@@ -194,7 +216,21 @@
 .for-button:hover {
   background-color: #d9dd92;
 }
-
+.for-buttonModal {
+  padding: 8px 16px;
+  background-color: #d48208;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 25px;
+  font-family: "Exo";
+  position: absolute;
+}
+.for-buttonModal:hover {
+  background-color: #d9dd92;
+}
 .gallery {
   display: flex;
   align-items: center;
@@ -289,9 +325,17 @@
 </style>
 
 <script>
+import Modal from "./OfertaModal.vue";
+import axios from "axios";
+
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
+      showModal: true,
+      ofertas: [],
       fechaInicio: null,
       fechaTermino: null,
       images: [
@@ -415,11 +459,32 @@ export default {
     set_login: function () {
       this.$router.push("/Login");
     },
+    openModal() {
+      axios
+        .get("http://localhost:5023/api/v1/Ofertas")
+        .then((response) => {
+          this.ofertas = response.data;
+          this.showModal = true;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    formatDate(value) {
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return new Date(value).toLocaleDateString("es-ES", options);
+    },
   },
   computed: {
     currentImage() {
       return this.images[this.currentIndex];
     },
+  },
+  mounted() {
+    this.openModal(); // Llama a la función openModal automáticamente al cargar el componente
   },
 };
 </script>
