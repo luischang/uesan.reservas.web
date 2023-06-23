@@ -1,9 +1,12 @@
 const routes = [
   {
-    path: "/dashboard",
+    path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/IndexPage.vue") },
+      {
+        path: "",
+        component: () => import("components/Inicio/IniDefault.vue"),
+      },
       { path: "empresa", component: () => import("pages/Empresa.vue") },
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
       { path: "galeria", component: () => import("pages/Galeria.vue") },
@@ -14,6 +17,10 @@ const routes = [
       {
         path: "publicidadComercial",
         component: () => import("pages/PublicidadComercial.vue"),
+      },
+      {
+        path: "confirmacionPago",
+        component: () => import("pages/ConfirmacionPago.vue"),
       },
     ],
   },
@@ -29,6 +36,10 @@ const routes = [
     path: "/Login",
     component: () => import("components/auth/LoginForm.vue"),
   },
+  {
+    path: "/register",
+    component: () => import("components/auth/RegisterForm.vue"),
+  },
 
   {
     path: "/Mision&Vision",
@@ -42,14 +53,6 @@ const routes = [
   {
     path: "/SalaEventos",
     component: () => import("pages/SalaEventos.vue"),
-  },
-  {
-    path: "/Galeria",
-    component: () => import("pages/Galeria.vue"),
-  },
-  {
-    path: "/PoliticaPrivacidad",
-    component: () => import("pages/PoliticaPrivacidad.vue"),
   },
 ];
 
