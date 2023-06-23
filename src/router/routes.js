@@ -10,8 +10,8 @@ const routes = [
       { path: "empresa", component: () => import("pages/Empresa.vue") },
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
       {
-        path: "servicios",
-        component: () => import("pages/ServiciosAdicionales.vue"),
+        path: "seleccionarServicios",
+        component: () => import("pages/SeleccionarServiciosAdicionales.vue"),
       },
       { path: "galeria", component: () => import("pages/Galeria.vue") },
       {
@@ -23,8 +23,20 @@ const routes = [
         component: () => import("pages/PublicidadComercial.vue"),
       },
       {
+        path: "pagoReserva",
+        component: () => import("pages/PagoReserva.vue"),
+      },
+      {
         path: "confirmacionPago",
         component: () => import("pages/ConfirmacionPago.vue"),
+      },
+      {
+        path: "crearOfertas",
+        component: () => import("pages/CrearOfertas.vue"),
+      },
+      {
+        path: "reporteOfertas",
+        component: () => import("pages/ReporteOfertas.vue"),
       },
     ],
   },
