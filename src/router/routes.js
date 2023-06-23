@@ -9,7 +9,7 @@ const routes = [
       },
       { path: "empresa", component: () => import("pages/Empresa.vue") },
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
-      { path: "servicios", component: () => import("pages/ServiciosAdicionales.vue") },
+      { path: "seleccionarServicios", component: () => import("pages/SeleccionarServiciosAdicionales.vue") },
       { path: "galeria", component: () => import("pages/Galeria.vue") },
       {
         path: "politicaPrivacidad",
@@ -56,8 +56,8 @@ const routes = [
     component: () => import("pages/SalaEventos.vue"),
   },
   {
-    path: "/Servicios",
-    component: () => import("pages/ServiciosAdicionales.vue"),
+    path: "/seleccionarServicios",
+    component: () => import("pages/SeleccionarServiciosAdicionales.vue"),
   }
 ];
 
