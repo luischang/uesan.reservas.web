@@ -20,8 +20,16 @@ const routes = [
         component: () => import("pages/PublicidadComercial.vue"),
       },
       {
+        path: "pagoReserva",
+        component: () => import("pages/PagoReserva.vue"),
+      },
+      {
         path: "confirmacionPago",
         component: () => import("pages/ConfirmacionPago.vue"),
+      },
+      {
+        path: "crearOfertas",
+        component: () => import("pages/CrearOfertas.vue"),
       },
     ],
   },
@@ -58,6 +66,14 @@ const routes = [
   {
     path: "/seleccionarServicios",
     component: () => import("pages/SeleccionarServiciosAdicionales.vue"),
+  },
+  {
+    path: "/pagoReserva",
+    component: () => import("pages/PagoReserva.vue"),
+  },
+  {
+    path: "/crearOfertas",
+    component: () => import("pages/CrearOfertas.vue"),
   }
 ];
 

@@ -80,7 +80,7 @@ export default {
     },
     confirmarCompra() {
       console.log("Compra confirmada");
-      this.$router.push("/Pago");
+      this.$router.push("/PagoReserva");
     },
   },
 };
