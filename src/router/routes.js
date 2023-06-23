@@ -31,6 +31,10 @@ const routes = [
         path: "crearOfertas",
         component: () => import("pages/CrearOfertas.vue"),
       },
+      {
+        path: "reporteOfertas",
+        component: () => import("pages/ReporteOfertas.vue"),
+      },
     ],
   },
 
@@ -74,6 +78,10 @@ const routes = [
   {
     path: "/crearOfertas",
     component: () => import("pages/CrearOfertas.vue"),
+  },
+  {
+    path: "/reporteOfertas",
+    component: () => import("pages/ReporteOfertas.vue"),
   }
 ];
 

@@ -25,10 +25,14 @@
               <q-checkbox v-model="estado" label="Estado"></q-checkbox>
             </div>
             <div class="button-container">
-              <q-btn type="submit" label="Crear Oferta" color="orange"></q-btn>
+              <q-btn type="submit" label="Crear Oferta" color="orange" class="create-btn"></q-btn>
             </div>
           </q-form>
         </q-card-section>
+        <q-card-actions align="around">
+          <q-btn @click="goToInicio" label="Inicio" color="orange" class="home-btn"></q-btn>
+          <q-btn @click="goToReporte" label="Reporte de Ofertas" color="primary" class="report-btn"></q-btn>
+        </q-card-actions>
       </q-card>
     </div>
   </template>
@@ -74,6 +78,12 @@
               color: 'negative'
             });
           });
+      },
+      goToInicio() {
+        this.$router.push("/");
+      },
+      goToReporte() {
+        this.$router.push("/ReporteOfertas");
       }
     }
   };
@@ -95,7 +105,8 @@
   
   .title {
     font-family: 'Exo', sans-serif;
-    font-size: 24px;
+    font-weight: bold;
+    font-size: 50px;
     text-align: center;
     margin-bottom: 24px;
     color: #fff; /* Color de texto del título */
@@ -122,8 +133,30 @@
   
   .button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 24px;
+  }
+  
+  .create-btn,
+  .report-btn,
+  .home-btn {
+    font-family: 'Exo', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 20px;
+  }
+  
+  .create-btn {
+    background-color: #e06e43;
+  }
+  
+  .report-btn {
+    background-color: #007bff;
+  }
+  
+  .home-btn {
+    background-color: #e06e43;
   }
   
   .q-input {
@@ -132,13 +165,6 @@
   
   .q-checkbox {
     margin-top: 16px;
-  }
-  
-  .q-btn {
-    font-family: 'Exo', sans-serif;
-    font-weight: bold;
-    color: #fff;
-    background-color: #e06e43;
   }
   </style>
   
