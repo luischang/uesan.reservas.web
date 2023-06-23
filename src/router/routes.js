@@ -9,7 +9,10 @@ const routes = [
       },
       { path: "empresa", component: () => import("pages/Empresa.vue") },
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
-      { path: "servicios", component: () => import("pages/ServiciosAdicionales.vue") },
+      {
+        path: "servicios",
+        component: () => import("pages/ServiciosAdicionales.vue"),
+      },
       { path: "galeria", component: () => import("pages/Galeria.vue") },
       {
         path: "politicaPrivacidad",
@@ -41,24 +44,6 @@ const routes = [
     path: "/register",
     component: () => import("components/auth/RegisterForm.vue"),
   },
-
-  {
-    path: "/Mision&Vision",
-    component: () => import("pages/Empresa.vue"),
-  },
-
-  {
-    path: "/PubliComercial",
-    component: () => import("pages/PublicidadComercial.vue"),
-  },
-  {
-    path: "/SalaEventos",
-    component: () => import("pages/SalaEventos.vue"),
-  },
-  {
-    path: "/Servicios",
-    component: () => import("pages/ServiciosAdicionales.vue"),
-  }
 ];
 
 export default routes;

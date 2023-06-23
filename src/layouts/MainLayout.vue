@@ -1,9 +1,18 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
+      <q-toolbar class="main-toolbar">
+        <q-toolbar-title class="Titleclass"> Site Reservas </q-toolbar-title>
+        <boton class="custom-btn" @click="inicio">Inicio</boton>
+        <boton class="custom-btn" @click="empresa">Empresa</boton>
+        <boton class="custom-btn" @click="galeria">Galeria</boton>
+        <boton class="custom-btn" @click="SalaEvento">Sala de Eventos </boton>
+        <boton class="custom-btn" v-if="!userResult" @click="login"
+          >Iniciar sesión</boton
+        >
+        <boton class="custom-btn" v-if="!userResult" @click="register"
+          >Registrarse</boton
+        >
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -12,13 +21,92 @@
   </q-layout>
 </template>
 
+<style>
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+.main-toolbar {
+  background-color: #e06e43;
+  color: #ffffff;
+  padding: 20px 20px;
+}
+.Titleclass {
+  font-family: "Exo";
+  color: white;
+  font-size: 35px;
+}
+.custom-btn {
+  position: relative;
+  background-color: #e06e43;
+  color: #ffffff;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Exo";
+  margin-right: 10px; /* Espacio entre botones */
+  outline: none;
+  border-color: transparent;
+}
+.custom-btn:last-child {
+  margin-right: 0; /* Elimina el margen del último botón */
+}
+.custom-btn:hover {
+  background-color: #d9dd92;
+}
+
+.custom-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #e06e43;
+}
+</style>
+
 <script>
 import { defineComponent, ref } from "vue";
-import EssentialLink from "components/EssentialLink.vue";
 
 export default defineComponent({
   name: "MainLayout",
 
   components: {},
+  data() {
+    return {
+      userResult: "",
+    };
+  },
+  mounted() {
+    this.checkUserResult();
+    window.addEventListener("beforeunload", this.removeUserResult);
+  },
+  beforeUnmount() {
+    window.removeEventListener("beforeunload", this.removeUserResult);
+  },
+  methods: {
+    checkUserResult() {
+      const storedData = localStorage.getItem("userResult");
+      if (storedData && storedData !== "undefined") {
+        this.userResult = JSON.parse(storedData);
+      }
+    },
+    login() {
+      this.$router.push("/Login");
+    },
+    register() {
+      this.$router.push("/register");
+    },
+    empresa() {
+      this.$router.push("/empresa");
+    },
+    removeUserResult() {
+      localStorage.removeItem("userResult");
+    },
+    inicio() {
+      this.$router.push("/");
+    },
+    galeria() {
+      this.$router.push("/galeria");
+    },
+    SalaEvento() {
+      this.$router.push("/salaEventos");
+    },
+  },
 });
 </script>
