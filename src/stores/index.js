@@ -1,15 +1,14 @@
-import { createStore } from 'vuex';
-import { createPinia } from 'pinia'
-import Vue from 'vue';
-import App from './App.vue';
-import store from './store';
+import { createPinia } from "pinia";
+import Vue from "vue";
+import App from "./App.vue";
+import store from "./store";
 
 Vue.config.productionTip = false;
 
 new Vue({
   store,
-  render: h => h(App),
-}).$mount('#app');
+  render: (h) => h(App),
+}).$mount("#app");
 
 /*
  * If not building with SSR mode, you can
@@ -21,10 +20,10 @@ new Vue({
  */
 
 export default store((/* { ssrContext } */) => {
-  const pinia = createPinia()
+  const pinia = createPinia();
 
   // You can add Pinia plugins here
   // pinia.use(SomePiniaPlugin)
 
-  return pinia
-})
+  return pinia;
+});

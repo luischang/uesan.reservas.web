@@ -1,11 +1,13 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { store } from "quasar/wrappers";
+import Vue from "vue";
+import { createPinia } from "pinia";
+import Vuex from "vuex";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    carrito: []
+    carrito: [],
   },
   mutations: {
     agregarAlCarrito(state, item) {
@@ -13,15 +15,15 @@ export default new Vuex.Store({
     },
     limpiarCarrito(state) {
       state.carrito = [];
-    }
+    },
   },
   actions: {
     agregarAlCarrito({ commit }, item) {
-      commit('agregarAlCarrito', item);
+      commit("agregarAlCarrito", item);
     },
     limpiarCarrito({ commit }) {
-      commit('limpiarCarrito');
-    }
+      commit("limpiarCarrito");
+    },
   },
   getters: {
     carrito(state) {
@@ -33,6 +35,6 @@ export default new Vuex.Store({
         total += parseFloat(item.precio);
       }
       return total.toFixed(2);
-    }
-  }
+    },
+  },
 });
