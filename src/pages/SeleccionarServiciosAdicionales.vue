@@ -35,37 +35,13 @@
   </div>
 </template>
 
-
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      servicios: [
-        {
-          id: 1,
-          nombre: "Desayuno",
-          descripcion: "¡Descubre el delicioso desayuno! Nuestro buffet ofrece una amplia variedad de panes frescos, pasteles, cereales, frutas, jugos naturales y opciones calientes como huevos revueltos, tocino y salchichas. También atendemos dietas especiales. Disfruta de bebidas premium como café recién molido y tés. ¡Comienza tu día con una experiencia culinaria excepcional en un ambiente acogedor y amigable!",
-          estado: true,
-          precio: "$ 200",
-          imagen: "https://i.blogs.es/41884d/desayuno_continental/1366_2000.jpg",
-        },
-        {
-          id: 2,
-          nombre: "Servicio de habitación",
-          descripcion: "Te ofrecemos un servicio de limpieza de habitaciones excepcional. Nuestro equipo profesional se encarga de mantener tu habitación impecable y ordenada, cambiando sábanas y toallas diariamente. Además, nos preocupamos por tu comodidad y privacidad, adaptándonos a tus preferencias. Si necesitas algo adicional, nuestro personal está siempre dispuesto a ayudarte. ¡Disfruta de una estancia impecable!",
-          estado: true,
-          precio: "$ 70",
-          imagen: "https://images.ecestaticos.com/NOByjyQi2aB6h2wpMlEjHGqDwiM=/0x0:2121x1414/600x450/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fc05%2F0f2%2F607%2Fc050f26072df7955d7d08818f68f9c58.jpg",
-        },
-        {
-          id: 3,
-          nombre: "Servicio de bebidas",
-          descripcion: "Disfruta de un servicio de bebidas excepcional. Nuestro bar ofrece una amplia variedad de cócteles, vinos finos y bebidas sin alcohol. Nuestro personal estará encantado de ayudarte a elegir la opción perfecta para ti. Relájate y disfruta de momentos refrescantes durante tu estadía en nuestro acogedor ambiente.",
-          estado: true,
-          precio: "$ 100",
-          imagen: "https://laedudigital.files.wordpress.com/2020/10/pexels-photo-605408.jpeg",
-        },
-      ],
+      servicios: [],
       carrito: [],
       mostrarCarrito: false,
     };
@@ -82,6 +58,21 @@ export default {
       console.log("Compra confirmada");
       this.$router.push("/PagoReserva");
     },
+    obtenerServicios() {
+      const apiUrl = 'http://localhost:5023/api/v1/Servicio';
+
+      axios
+        .get(apiUrl)
+        .then(response => {
+          this.servicios = response.data;
+        })
+        .catch(error => {
+          console.error('Error al obtener los servicios:', error);
+        });
+    },
+  },
+  mounted() {
+    this.obtenerServicios();
   },
 };
 </script>
@@ -208,7 +199,6 @@ button {
   max-width: 30px;
   max-height: 30px;
 }
-
 
 .carrito-count {
   background-color: #fff;
