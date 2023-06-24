@@ -13,6 +13,9 @@
         <boton class="custom-btn" v-if="!userResult" @click="register"
           >Registrarse</boton
         >
+        <boton class="custom-btn" v-if="userResult"
+          >Bienvenido {{ name }}</boton
+        >
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -32,6 +35,12 @@
   font-family: "Exo";
   color: white;
   font-size: 35px;
+}
+.Text_bienv {
+  font-size: 20px;
+  font-family: "Exo";
+  position: relative;
+  top: 6px;
 }
 .custom-btn {
   position: relative;
@@ -70,14 +79,29 @@ export default defineComponent({
   data() {
     return {
       userResult: "",
+      usuario: {
+        email: "",
+        contraseña: "",
+        nombre: "",
+        apellido: "",
+        direccion: "",
+        telefono: "",
+        estado: "",
+        idTipo: "",
+        idUsuario: "",
+        puntos: "",
+      },
+      name: "",
     };
   },
   mounted() {
     this.checkUserResult();
+    window.addEventListener("beforeunload", this.scheduleRemoval);
     window.addEventListener("beforeunload", this.removeUserResult);
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.removeUserResult);
+    window.removeEventListener("beforeunload", this.scheduleRemoval);
   },
   methods: {
     checkUserResult() {
@@ -86,6 +110,22 @@ export default defineComponent({
         this.userResult = JSON.parse(storedData);
       }
     },
+    scheduleRemoval() {
+      const currentTime = new Date().getTime();
+      localStorage.setItem("removalTime", String(currentTime + 1 * 60 * 1000)); // Agrega 1 minutos al tiempo actual
+
+      window.setTimeout(() => {
+        const removalTime = localStorage.getItem("removalTime");
+        if (removalTime) {
+          const currentTime = new Date().getTime();
+          if (currentTime >= parseInt(removalTime)) {
+            localStorage.removeItem("userResult");
+            localStorage.removeItem("removalTime");
+          }
+        }
+      }, 10 * 60 * 1000); // 10 minutos (en milisegundos)
+    },
+
     login() {
       this.$router.push("/Login");
     },
