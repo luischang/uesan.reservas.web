@@ -38,6 +38,14 @@ const routes = [
         path: "reporteOfertas",
         component: () => import("pages/ReporteOfertas.vue"),
       },
+      {
+        path: "crearHabitacion",
+        component: () => import("pages/CreateHabitacion.vue"),
+      },
+      {
+        path: "seleHabitacion",
+        component: () => import("pages/SelectHabitacion.vue"),
+      },
     ],
   },
 
