@@ -44,7 +44,11 @@ const routes = [
       },
       {
         path: "seleHabitacion",
-        component: () => import("pages/SelectHabitacion.vue"),
+        component: () => import("components/Reserva/SelectHabitacion.vue"),
+      },
+      {
+        path: "reservasOrder",
+        component: () => import("components/Reserva/ReservaOrder.vue"),
       },
     ],
   },
@@ -63,6 +67,10 @@ const routes = [
   {
     path: "/register",
     component: () => import("components/auth/RegisterForm.vue"),
+  },
+  {
+    path: "/das",
+    component: () => import("components/Reserva/ReservaOrder.vue"),
   },
 ];
 

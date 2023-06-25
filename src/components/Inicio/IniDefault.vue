@@ -14,11 +14,13 @@
       <div class="dark-overlay"></div>
       <div class="date-picker-content">
         <div class="form-group">
-          <label for="fechaInicio">Fecha de inicio:</label>
+          <label for="fechaInicio" class="fecha_color">Fecha de inicio:</label>
           <input type="date" v-model="fechaInicio" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="fechaTermino">Fecha de término:</label>
+          <label for="fechaTermino" class="fecha_color"
+            >Fecha de término:</label
+          >
           <input type="date" v-model="fechaTermino" class="form-control" />
         </div>
       </div>
@@ -110,11 +112,14 @@
 .font-parrafo1 {
   font-family: "Exo";
   font-size: 18px;
-  color: #0b0300;
+  color: White;
   position: relative;
   /* Agrega aquí cualquier otra propiedad de estilo que desees aplicar */
 }
-
+.fecha_color {
+  color: white;
+  font-family: "Exo";
+}
 .title-image {
   width: 1550px;
   height: 250px;
@@ -464,6 +469,7 @@ export default {
         .get("http://localhost:5023/api/v1/Ofertas")
         .then((response) => {
           this.ofertas = response.data;
+          localStorage.setItem("ofertasResult", JSON.stringify(response.data));
           this.showModal = true;
         })
         .catch((error) => {

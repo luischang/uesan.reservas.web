@@ -61,6 +61,7 @@
 }
 .custom-btn:hover {
   background-color: #d9dd92;
+  color: black;
 }
 
 .custom-btn:focus {
@@ -96,34 +97,18 @@ export default defineComponent({
   },
   mounted() {
     this.checkUserResult();
-    window.addEventListener("beforeunload", this.scheduleRemoval);
     window.addEventListener("beforeunload", this.removeUserResult);
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.removeUserResult);
-    window.removeEventListener("beforeunload", this.scheduleRemoval);
   },
   methods: {
     checkUserResult() {
       const storedData = localStorage.getItem("userResult");
       if (storedData && storedData !== "undefined") {
         this.userResult = JSON.parse(storedData);
+        this.name = this.userResult.nombre;
       }
-    },
-    scheduleRemoval() {
-      const currentTime = new Date().getTime();
-      localStorage.setItem("removalTime", String(currentTime + 1 * 60 * 1000)); // Agrega 1 minutos al tiempo actual
-
-      window.setTimeout(() => {
-        const removalTime = localStorage.getItem("removalTime");
-        if (removalTime) {
-          const currentTime = new Date().getTime();
-          if (currentTime >= parseInt(removalTime)) {
-            localStorage.removeItem("userResult");
-            localStorage.removeItem("removalTime");
-          }
-        }
-      }, 10 * 60 * 1000); // 10 minutos (en milisegundos)
     },
 
     login() {
