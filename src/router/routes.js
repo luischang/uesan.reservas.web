@@ -50,6 +50,10 @@ const routes = [
         path: "reservasOrder",
         component: () => import("components/Reserva/ReservaOrder.vue"),
       },
+      {
+        path: "mostrarServicios",
+        component: () => import("pages/MostrarServicios.vue"),
+      },
     ],
   },
 
@@ -71,6 +75,10 @@ const routes = [
   {
     path: "/das",
     component: () => import("components/Reserva/ReservaOrder.vue"),
+  },
+  {
+    path: "/mostrarServicios",
+    component: () => import("pages/MostrarServicios.vue"),
   },
 ];
 
