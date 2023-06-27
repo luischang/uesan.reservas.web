@@ -170,6 +170,7 @@ export default {
         cantPersonas: 0,
         idOfertas: 0,
       },
+      randomItem: null,
     };
   },
   methods: {
@@ -192,7 +193,7 @@ export default {
         this.Form_reserva.fecha_Inicio = this.fecha_Inicio;
         this.Form_reserva.fecha_Fin = this.fecha_Fin;
         this.Form_reserva.idEstadoRes = 1;
-        this.Form_reserva.idOfertas = 1;
+        this.Form_reserva.idOfertas = this.getRandomItem;
 
         var url = "http://localhost:5023/api/v1/ReservasOrder/Crear";
 
@@ -207,6 +208,14 @@ export default {
             console.log("Ocurrió un error " + error);
             this.showNotification("Ocurrió un error", "red", "top", 2000);
           });
+      }
+    },
+    getRandomItem() {
+      if (this.ofertasResult && this.ofertasResult.length > 0) {
+        const randomIndex = Math.floor(
+          Math.random() * this.ofertasResult.length
+        );
+        this.randomItem = this.ofertasResult[randomIndex].idOfertas;
       }
     },
     showNotification: function (message, color, position, timeout) {
