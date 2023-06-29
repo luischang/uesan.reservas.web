@@ -23,7 +23,7 @@
   <div class="group_selection">
     <div>
       <h5 class="group_text">Seleccionar <br />habitación</h5>
-      <bottom @click="openModal">
+      <bottom @click="openModal1">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
           alt="CHECK"
@@ -31,39 +31,51 @@
         />
       </bottom>
       <modal-component
-        v-if="showModal"
-        @close-modal="closeModal"
+        v-if="showModal1"
+        @close-modal="closeModal1"
       ></modal-component>
     </div>
     <div>
       <h5 class="group_text">Seleccionar <br />servicios adicionales</h5>
-      <bottom>
+      <bottom @click="openModal2">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
           alt="CHECK"
           class="img_button"
         />
       </bottom>
+      <modal-component2
+        v-if="showModal2"
+        @close-modal="closeModal2"
+      ></modal-component2>
     </div>
     <div>
       <h5 class="group_text">Seleccionar <br />sala de eventos</h5>
-      <bottom>
+      <bottom @click="openModal3">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
           alt="CHECK"
           class="img_button"
         />
       </bottom>
+      <modal-component3
+        v-if="showModal3"
+        @close-modal="closeModal3"
+      ></modal-component3>
     </div>
     <div>
       <h5 class="group_text">Ver oferta <br />agregada</h5>
-      <bottom>
+      <bottom @click="openModal4">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
           alt="CHECK"
           class="img_button"
         />
       </bottom>
+      <modal-component4
+        v-if="showModal4"
+        @close-modal="closeModal4"
+      ></modal-component4>
     </div>
   </div>
 </template>
@@ -106,7 +118,6 @@
 }
 .img_button {
   width: 40px;
-  white: 40px;
   border: transparent;
 }
 label {
@@ -150,28 +161,36 @@ input {
 <script>
 import axios from "axios";
 import ModalComponent from "./SelectHabitacion.vue";
+import ModalComponent2 from "./SeleccionarServiciosAdicionales.vue";
+import ModalComponent3 from "./SeleccionarSalaEvento.vue";
+import ModalComponent4 from "./OfertaSelecionada.vue";
+
 export default {
   name: "ReservaOrden",
   components: {
     ModalComponent,
+    ModalComponent2,
+    ModalComponent3,
+    ModalComponent4,
   },
   data() {
     return {
-      showModal: false,
+      showModal1: false,
+      showModal2: false,
+      showModal3: false,
+      showModal4: false,
       fechaInicio: "",
       fechaFin: "",
       numAdultos: 0,
       numNinos: 0,
-      Form_reserva: {
-        idUsuario: 0,
-        fechaIni: "",
-        fechaFin: "",
-        idEstadoRes: 0,
-        cantPersonas: 0,
-        idOfertas: 0,
-      },
       randomItem: null,
+      ofertasResult: null,
     };
+  },
+  created() {
+    const ofertaData = localStorage.getItem("ofertasResult");
+    this.ofertasResult = JSON.parse(ofertaData);
+    this.getRandomItem();
   },
   methods: {
     set_reserva: function () {
@@ -188,21 +207,24 @@ export default {
           2000
         );
       } else {
-        this.Form_reserva.idUsuario = this.userResult.idUsuario;
-        this.Form_reserva.cantPersonas = this.num_Adultos + this.num_Ninos;
-        this.Form_reserva.fecha_Inicio = this.fecha_Inicio;
-        this.Form_reserva.fecha_Fin = this.fecha_Fin;
-        this.Form_reserva.idEstadoRes = 1;
-        this.Form_reserva.idOfertas = this.getRandomItem;
-
+        var data = {
+          idUsuario: this.userResult.idUsuario,
+          fechaIni: this.fecha_Inicio,
+          fechaFin: this.fecha_Fin,
+          idEstadoRes: 1,
+          cantPersonas: this.num_Adultos + this.num_Ninos,
+          idOfertas: parseInt(this.randomItem),
+        };
         var url = "http://localhost:5023/api/v1/ReservasOrder/Crear";
-
         axios
-          .post(url, this.Form_reserva)
+          .post(url, data)
           .then((response) => {
             console.log("Aquí va la respuesta " + JSON.stringify(response));
+            localStorage.setItem(
+              "IdReservaCreation",
+              JSON.stringify(response.data)
+            );
             this.showNotification("Registro correcto", "green", "top", 1000);
-            this.$router.push("/Login");
           })
           .catch((error) => {
             console.log("Ocurrió un error " + error);
@@ -216,6 +238,10 @@ export default {
           Math.random() * this.ofertasResult.length
         );
         this.randomItem = this.ofertasResult[randomIndex].idOfertas;
+        localStorage.setItem(
+          "IdOFertaGanadora",
+          JSON.stringify(this.randomItem)
+        );
       }
     },
     showNotification: function (message, color, position, timeout) {
@@ -237,11 +263,29 @@ export default {
         document.body.removeChild(notification);
       }, timeout);
     },
-    openModal() {
-      this.showModal = true;
+    openModal1() {
+      this.showModal1 = true;
     },
-    closeModal() {
-      this.showModal = false;
+    closeModal1() {
+      this.showModal1 = false;
+    },
+    openModal2() {
+      this.showModal2 = true;
+    },
+    closeModal2() {
+      this.showModal2 = false;
+    },
+    openModal3() {
+      this.showModal3 = true;
+    },
+    closeModal3() {
+      this.showModal3 = false;
+    },
+    openModal4() {
+      this.showModal4 = true;
+    },
+    closeModal4() {
+      this.showModal4 = false;
     },
   },
 };

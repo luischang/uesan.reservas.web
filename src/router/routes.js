@@ -11,7 +11,16 @@ const routes = [
       { path: "salaEventos", component: () => import("pages/SalaEventos.vue") },
       {
         path: "seleccionarServicios",
-        component: () => import("pages/SeleccionarServiciosAdicionales.vue"),
+        component: () =>
+          import("components/Reserva/SeleccionarServiciosAdicionales.vue"),
+      },
+      {
+        path: "seleccionarSalaEvento",
+        component: () => import("components/Reserva/SeleccionarSalaEvento.vue"),
+      },
+      {
+        path: "ofertaGanadora",
+        component: () => import("components/Reserva/OfertaSelecionada.vue"),
       },
       { path: "galeria", component: () => import("pages/Galeria.vue") },
       {

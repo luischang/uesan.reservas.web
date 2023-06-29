@@ -302,7 +302,7 @@ export default {
             if (response.data.idTipo === 1) {
               this.$router.push("/admin-dashboard");
             } else {
-              this.$router.push("/dashboard");
+              this.$router.push("/reservasOrder");
             }
           }, 170);
         })

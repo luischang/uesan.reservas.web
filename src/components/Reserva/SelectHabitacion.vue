@@ -21,6 +21,9 @@
         :class="{
           'habitacion-disponible': habitacion.estado,
           'habitacion-ocupada': !habitacion.estado,
+          'habitacion-seleccionada': habitacionesSeleccionadas.includes(
+            habitacion.id_Habitacion
+          ),
         }"
       >
         <h3>{{ habitacion.descripcion }}</h3>
@@ -44,10 +47,12 @@
 
 <script>
 export default {
+  emits: ["close-modal"],
   data() {
     return {
       habitaciones: [],
       filtro: "todos",
+      habitacionesSeleccionadas: [],
     };
   },
   mounted() {
@@ -60,6 +65,10 @@ export default {
       .catch((error) => {
         console.error("Error al obtener las habitaciones:", error);
       });
+    const seleccionGuardada = localStorage.getItem("habitacionesSeleccionadas");
+    if (seleccionGuardada) {
+      this.habitacionesSeleccionadas = JSON.parse(seleccionGuardada);
+    }
   },
   computed: {
     habitacionesFiltradas() {
@@ -75,11 +84,35 @@ export default {
   },
   methods: {
     seleccionarHabitacion(id) {
-      // Realizar acciones con el ID de la habitación seleccionada
-      console.log("Habitación seleccionada:", id);
+      const index = this.habitacionesSeleccionadas.indexOf(id);
+      if (index === -1) {
+        // La habitación no está seleccionada, la agregamos al array
+        this.habitacionesSeleccionadas.push(id);
+      } else {
+        // La habitación ya está seleccionada, la eliminamos del array
+        this.habitacionesSeleccionadas.splice(index, 1);
+      }
+      console.log(
+        "Habitaciones seleccionadas:",
+        this.habitacionesSeleccionadas
+      );
     },
     closeModal() {
       this.$emit("close-modal");
+    },
+    guardarSeleccionEnLocalStorage() {
+      localStorage.setItem(
+        "habitacionesSeleccionadas",
+        JSON.stringify(this.habitacionesSeleccionadas)
+      );
+    },
+  },
+  watch: {
+    habitacionesSeleccionadas: {
+      handler() {
+        this.guardarSeleccionEnLocalStorage();
+      },
+      deep: true,
     },
   },
 };
@@ -115,7 +148,13 @@ export default {
   color: white;
   border: white 1px solid;
 }
-
+.habitacion-seleccionada {
+  background-color: rgb(
+    75,
+    149,
+    75
+  ); /* Aquí puedes definir el color de fondo que desees */
+}
 .habitacion-ocupada {
   background-color: #d48208;
 }
