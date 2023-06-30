@@ -193,6 +193,11 @@ export default {
     this.getRandomItem();
   },
   methods: {
+    irAPaginaPago() {
+      const idReserva = 123; // Obtén el ID de reserva desde donde lo tengas almacenado
+
+      this.$router.push(`/pago/${idReserva}`);
+    },
     set_reserva: function () {
       const storedData = localStorage.getItem("userResult");
       this.userResult = JSON.parse(storedData);
