@@ -230,6 +230,8 @@ export default {
               JSON.stringify(response.data)
             );
             this.showNotification("Registro correcto", "green", "top", 1000);
+
+            this.$router.push("/pagoReserva");
           })
           .catch((error) => {
             console.log("Ocurrió un error " + error);

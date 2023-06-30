@@ -79,7 +79,7 @@ export default defineComponent({
   components: {},
   data() {
     return {
-      userResult: "",
+      userResult: null,
       usuario: {
         email: "",
         contraseña: "",
@@ -124,7 +124,14 @@ export default defineComponent({
       localStorage.removeItem("userResult");
     },
     inicio() {
-      this.$router.push("/");
+      const storeData = localStorage.getItem("userResult");
+      this.userResult = JSON.parse(storeData);
+
+      if (this.userResult != null) {
+        this.$router.push("reservasOrder");
+      } else {
+        this.$router.push("/");
+      }
     },
     galeria() {
       this.$router.push("/galeria");

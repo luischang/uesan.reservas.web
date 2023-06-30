@@ -4,11 +4,11 @@
     <h3 class="text_tittlee">Felicidades la oferta que ganaste es:</h3>
     <div v-if="ofertaGanadora">
       <p>Descripción: {{ ofertaGanadora.descripcion }}</p>
-      <p>Precio: {{ ofertaGanadora.descuento }}</p>
+      <p>Descuento: {{ ofertaGanadora.descuento }}</p>
       <!-- Agrega aquí más detalles que desees mostrar -->
     </div>
     <div v-else>
-      <p>No hay ofertas vigentes.</p>
+      <p>No aplico a ninguna oferta.</p>
     </div>
   </div>
   <div>
@@ -22,11 +22,11 @@ export default {
   emits: ["close-modal"],
   data() {
     return {
-      idOfertas: null,
+      idOfertas: "",
       ofertas: [],
     };
   },
-  mounted() {
+  created() {
     const storeData = localStorage.getItem("ofertasResult");
     this.ofertas = JSON.parse(storeData);
 
@@ -41,7 +41,7 @@ export default {
   computed: {
     ofertaGanadora() {
       return this.ofertas.find(
-        (oferta) => oferta.idOfertas === this.idOfertaGanadora
+        (ofertas) => ofertas.idOfertas === parseInt(this.idOfertas)
       );
     },
   },
