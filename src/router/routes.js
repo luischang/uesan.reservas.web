@@ -63,6 +63,10 @@ const routes = [
         path: "mostrarServicios",
         component: () => import("pages/MostrarServicios.vue"),
       },
+      {
+        path: "mostrarCliente",
+        component: () => import("components/Cliente/MostrarCliente.vue"),
+      },
     ],
   },
 
