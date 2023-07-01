@@ -93,6 +93,10 @@ const routes = [
     path: "/mostrarServicios",
     component: () => import("pages/MostrarServicios.vue"),
   },
+  {
+    path: "/mostrarSalaEventos",
+    component: () => import("pages/MostrarSalaEventos.vue"),
+  },
 ];
 
 export default routes;
