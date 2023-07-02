@@ -11,10 +11,22 @@
 
     <div class="form-group">
       <label for="numAdultos">Número de adultos:</label>
-      <input type="number" id="num_Adultos" v-model="num_Adultos" required />
+      <input
+        type="number"
+        id="num_Adultos"
+        v-model="num_Adultos"
+        required
+        @input="validarNumero1"
+      />
       <div><h2 class="espacio_cont"></h2></div>
       <label for="numNinos">Número de niños:</label>
-      <input type="number" id="num_Ninos" v-model="num_Ninos" required />
+      <input
+        type="number"
+        id="num_Ninos"
+        v-model="num_Ninos"
+        required
+        @input="validarNumero2"
+      />
     </div>
     <button @click="set_reserva()" class="btn-reservar" type="submit">
       Reservar
@@ -181,10 +193,11 @@ export default {
       showModal4: false,
       fechaInicio: "",
       fechaFin: "",
-      numAdultos: 0,
-      numNinos: 0,
+      num_Adultos: null,
+      num_Ninos: null,
       randomItem: null,
       ofertasResult: null,
+      esNumeroInvalido: false,
     };
   },
   created() {
@@ -221,6 +234,35 @@ export default {
           idOfertas: parseInt(this.randomItem),
         };
         var url = "http://localhost:5023/api/v1/ReservasOrder/Crear";
+
+        if (this.num_Adultos < 0 || this.num_Ninos < 0) {
+          this.showNotification(
+            "No se acepta Valores negativos",
+            "red",
+            "top",
+            2000
+          );
+          return;
+        }
+        if (this.num_Adultos + this.num_Ninos < 1) {
+          this.showNotification(
+            "Revise la cantidad de Adultos y niños",
+            "red",
+            "top",
+            2000
+          );
+          return;
+        }
+        if (this.fecha_Fin == null || this.fecha_Inicio == null) {
+          this.showNotification(
+            "No se acepta fechas vacias",
+            "red",
+            "top",
+            2000
+          );
+          return;
+        }
+
         axios
           .post(url, data)
           .then((response) => {
@@ -269,6 +311,26 @@ export default {
       setTimeout(function () {
         document.body.removeChild(notification);
       }, timeout);
+    },
+    validarNumero1() {
+      if (parseInt(this.num_Adultos) < 0) {
+        this.showNotification(
+          "El numero no puede ser negativo",
+          "red",
+          "top",
+          1000
+        );
+      }
+    },
+    validarNumero2() {
+      if (parseInt(this.num_Ninos) < 0) {
+        this.showNotification(
+          "El numero no puede ser negativo",
+          "red",
+          "top",
+          1000
+        );
+      }
     },
     openModal1() {
       this.showModal1 = true;

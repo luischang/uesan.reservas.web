@@ -2,7 +2,7 @@
   <div class="modal"></div>
   <div class="containerOferta">
     <h3 class="text_tittlee">Felicidades la oferta que ganaste es:</h3>
-    <div v-if="ofertaGanadora">
+    <div v-if="ofertaGanadora" class="font_oferta">
       <p>Descripción: {{ ofertaGanadora.descripcion }}</p>
       <p>Descuento: {{ ofertaGanadora.descuento }}</p>
       <!-- Agrega aquí más detalles que desees mostrar -->
@@ -63,6 +63,11 @@ export default {
 .text_tittlee {
   color: white;
   font-family: "Exo";
+}
+.font_oferta {
+  color: white;
+  font-family: "Exo";
+  font-size: 30px;
 }
 .containerOferta {
   border: 1px solid #ccc;

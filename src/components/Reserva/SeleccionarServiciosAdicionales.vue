@@ -7,12 +7,18 @@
         <option value="ocupado">Ocupado</option>
       </select>
     </div>
-    <div class="servicio" v-for="servicio in serviciosFiltrados" :key="servicio.id">
+    <div
+      class="servicio"
+      v-for="servicio in serviciosFiltrados"
+      :key="servicio.id"
+    >
       <div
         :class="{
           'servicio-disponible': servicio.estado,
           'servicio-ocupado': !servicio.estado,
-          'servicio-seleccionado': servicioSeleccionado === servicio.id,
+          'SalaEvento-seleccionado': servicioSeleccionado.includes(
+            servicio.idServicio
+          ),
         }"
       >
         <h3>{{ servicio.descripcion }}</h3>
@@ -20,7 +26,7 @@
         <p>Precio: {{ servicio.precio }}</p>
         <button
           v-if="servicio.estado"
-          @click="seleccionarServicio(servicio.id)"
+          @click="seleccionarServicio(servicio.idServicio)"
           class="style_btn"
         >
           Seleccionar
@@ -33,7 +39,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   emits: ["close-modal"],
@@ -41,7 +46,7 @@ export default {
     return {
       servicios: [],
       filtro: "todos",
-      servicioSeleccionado: null,
+      servicioSeleccionado: [],
     };
   },
   mounted() {
@@ -53,6 +58,10 @@ export default {
       .catch((error) => {
         console.error("Error al obtener los servicios:", error);
       });
+    const seleccionGuardada = localStorage.getItem("servicioSeleccionado");
+    if (seleccionGuardada) {
+      this.servicioSeleccionado = JSON.parse(seleccionGuardada);
+    }
   },
   computed: {
     serviciosFiltrados() {
@@ -68,21 +77,35 @@ export default {
   },
   methods: {
     seleccionarServicio(id) {
-      if (this.servicioSeleccionado === id) {
-        // Si el servicio ya está seleccionado, lo deseleccionamos
-        this.servicioSeleccionado = null;
+      const index = this.servicioSeleccionado.indexOf(id);
+      if (index === -1) {
+        // La habitación no está seleccionada, la agregamos al array
+        this.servicioSeleccionado.push(id);
       } else {
-        // Si se selecciona un nuevo servicio, actualizamos el servicio seleccionado
-        this.servicioSeleccionado = id;
+        // La habitación ya está seleccionada, la eliminamos del array
+        this.servicioSeleccionado.splice(index, 1);
       }
     },
     closeModal() {
       this.$emit("close-modal");
     },
+    guardarSeleccionEnLocalStorage() {
+      localStorage.setItem(
+        "servicioSeleccionado",
+        JSON.stringify(this.servicioSeleccionado)
+      );
+    },
+  },
+  watch: {
+    servicioSeleccionado: {
+      handler() {
+        this.guardarSeleccionEnLocalStorage();
+      },
+      deep: true,
+    },
   },
 };
 </script>
-
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);

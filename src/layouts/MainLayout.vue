@@ -7,6 +7,10 @@
         <boton class="custom-btn" @click="empresa">Empresa</boton>
         <boton class="custom-btn" @click="galeria">Galeria</boton>
         <boton class="custom-btn" @click="SalaEvento">Sala de Eventos </boton>
+        <boton class="custom-btn" @click="ServAdicional"
+          >Servicio Adicionales
+        </boton>
+
         <boton class="custom-btn" v-if="!userResult" @click="login"
           >Iniciar sesión</boton
         >
@@ -14,7 +18,10 @@
           >Registrarse</boton
         >
         <boton class="custom-btn" v-if="userResult"
-          >Bienvenido {{ name }}</boton
+          >Bienvenido {{ name }} {{ apellido }}</boton
+        >
+        <boton class="custom-btn" v-if="userResult" @click="cerrarSesion"
+          >Cerrar Sesión</boton
         >
       </q-toolbar>
     </q-header>
@@ -93,14 +100,11 @@ export default defineComponent({
         puntos: "",
       },
       name: "",
+      apellido: "",
     };
   },
-  mounted() {
+  created() {
     this.checkUserResult();
-    window.addEventListener("beforeunload", this.removeUserResult);
-  },
-  beforeUnmount() {
-    window.removeEventListener("beforeunload", this.removeUserResult);
   },
   methods: {
     checkUserResult() {
@@ -108,6 +112,7 @@ export default defineComponent({
       if (storedData && storedData !== "undefined") {
         this.userResult = JSON.parse(storedData);
         this.name = this.userResult.nombre;
+        this.apellido = this.userResult.apellido;
       }
     },
 
@@ -118,10 +123,7 @@ export default defineComponent({
       this.$router.push("/register");
     },
     empresa() {
-      this.$router.push("/empresa");
-    },
-    removeUserResult() {
-      localStorage.removeItem("userResult");
+      this.$router.push("empresa");
     },
     inicio() {
       const storeData = localStorage.getItem("userResult");
@@ -134,10 +136,17 @@ export default defineComponent({
       }
     },
     galeria() {
-      this.$router.push("/galeria");
+      this.$router.push("galeria");
     },
     SalaEvento() {
-      this.$router.push("/salaEventos");
+      this.$router.push("salaEventos");
+    },
+    ServAdicional() {
+      this.$router.push("mostrarServicios");
+    },
+    cerrarSesion() {
+      localStorage.clear();
+      this.$router.push("/");
     },
   },
 });
