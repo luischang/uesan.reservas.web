@@ -300,7 +300,7 @@ export default {
           setTimeout(() => {
             // Verificar si el correo electrónico es "@admin"
             if (response.data.idTipo === 1) {
-              this.$router.push("/admin-dashboard");
+              this.$router.push("/Data_Admin");
             } else {
               this.$router.push("/reservasOrder");
             }

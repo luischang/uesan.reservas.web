@@ -71,6 +71,10 @@ const routes = [
         path: "/mostrarSalaEventos",
         component: () => import("pages/MostrarSalaEventos.vue"),
       },
+      {
+        path: "/Data_Admin",
+        component: () => import("components/AdminData/DatosAdmin.vue"),
+      },
     ],
   },
 

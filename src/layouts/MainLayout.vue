@@ -17,7 +17,7 @@
         <boton class="custom-btn" v-if="!userResult" @click="register"
           >Registrarse</boton
         >
-        <boton class="custom-btn" v-if="userResult"
+        <boton class="custom-btn" v-if="userResult" @click="registroUsuario"
           >Bienvenido {{ name }} {{ apellido }}</boton
         >
         <boton class="custom-btn" v-if="userResult" @click="cerrarSesion"
@@ -129,8 +129,10 @@ export default defineComponent({
       const storeData = localStorage.getItem("userResult");
       this.userResult = JSON.parse(storeData);
 
-      if (this.userResult != null) {
+      if (this.userResult != null && this.userResult.idTipo == 2) {
         this.$router.push("reservasOrder");
+      } else if (this.userResult != null && this.userResult.idTipo == 1) {
+        this.$router.push("Data_Admin");
       } else {
         this.$router.push("/");
       }
@@ -147,6 +149,13 @@ export default defineComponent({
     cerrarSesion() {
       localStorage.clear();
       this.$router.push("/");
+    },
+    registroUsuario() {
+      if (this.userResult.idTipo == 1) {
+        this.$router.push("/Data_Admin");
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 });
