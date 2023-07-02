@@ -21,7 +21,36 @@
         <label for="security-code">Código de seguridad:</label>
         <input type="text" id="security-code" v-model="codigoSeguridad" pattern="[0-9]{3}" maxlength="3" placeholder="Ingrese el código de seguridad (3 dígitos)" required />
       </div>
-
+      <div class="tablaHabitaciones" v-if="!isLoading">
+        <q-table
+            :rows="habitaciones"
+            :columns="columnasHabitaciones"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
+      <div class="tablaServicios" v-if="!isLoading2">
+        <q-table
+            :rows="servicios"
+            :columns="columnasServicios"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
+      <div class="tablaSalas" v-if="!isLoading3">
+        <q-table
+            :rows="salas"
+            :columns="columnasSalas"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
       <q-btn @click="realizarPago" color="primary">Realizar Pago</q-btn>
     </div>
   </div>
@@ -36,26 +65,105 @@ export default {
   data() {
     return {
       // Resto de las propiedades existentes
+      isLoading: true,
+      isLoading2: true,
+      isLoading3: true,
       montoTotal: 0,
       reservaDetalle: "",
       numeroTarjeta: "",
       titularTarjeta: "",
       fechaVencimiento: "",
       codigoSeguridad: "",
+      habitaciones: [],
+      columnasHabitaciones: [
+          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
+          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
+          ],
+      servicios: [],
+      columnasServicios: [
+          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
+          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
+          ],
+      salas: [],
+      columnasSalas: [
+          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
+          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
+          ],
     };
   },
   created() {
-    const idReserva = this.$route.params.idReserva;
-    // Realiza una petición HTTP o cualquier lógica necesaria para obtener los datos de la reserva
-    // utilizando el ID de reserva que recibiste en la URL
+    const habitacionData = localStorage.getItem("habitacionesSeleccionadas");
+    this.habitacionesResult = JSON.parse(habitacionData);
 
-    // Asigna los valores correspondientes a las propiedades montoTotal y reservaDetalle
-    this.montoTotal = 100; // Ejemplo de valor para el monto total
-    this.reservaDetalle = "Reserva de habitación"; // Ejemplo de detalle de reserva
+    const servicioData = localStorage.getItem("ServiciosAdicionales");
+    this.serviciosResult = JSON.parse(servicioData);
+
+    const salaData = localStorage.getItem("SalaEventosSeleccionadas");
+    this.salasResult = JSON.parse(salaData);
+
+    const ofertaData = localStorage.getItem("IdOFertaGanadora");
+    this.ofertasResult = JSON.parse(ofertaData);
   },
+
+  mounted() {
+    this.getHabitacionesByIds();
+    console.log("Estas son las habitaciones" + this.habitaciones)
+    console.log("Estas son los servicios" + this.serviciosResult) 
+    this.getServiciosByIds();
+    this.getSalasByIds();
+  },
+
   methods: {
     // Resto de los métodos existentes
+    getHabitacionesByIds() {
+      Promise.all(this.habitacionesResult.map(id => this.getHabitacionById(id)))
+        .then(habitacione => {
+          this.habitaciones=habitacione;
+          this.isLoading = false;
+        })
+        .catch(error => {
+          console.error(error);
+          this.isLoading = false;
+        });
+    },
+    getHabitacionById(id) {
+      return fetch(`http://localhost:5023/api/Habitacion/${id}`)
+        .then(response => response.json());
+    },
 
+    getServiciosByIds() {
+      Promise.all(this.serviciosResult.map(id => this.getServicioById(id)))
+        .then(servici => {
+          this.servicios=servici;
+          this.isLoading2 = false;
+        })
+        .catch(error => {
+          console.error(error);
+          this.isLoading2 = false;
+        });
+    },
+    getServicioById(id) {
+      return fetch(`http://localhost:5023/api/v1/Servicio/${id}`)
+        .then(response => response.json());
+    },
+
+    getSalasByIds() {
+      Promise.all(this.salasResult.map(id => this.getSalaById(id)))
+        .then(sal => {
+          this.salas=sal;
+          this.isLoading3 = false;
+          console.log("Estas son los ids recibidos" + this.salasResult) 
+        })
+        .catch(error => {
+          console.error(error);
+          this.isLoading3 = false;
+        });
+    },
+    getSalaById(id) {
+      return fetch(`http://localhost:5023/api/SalaDeEventos/TraerId/${id}`)
+        .then(response => response.json());
+    }
+  },
     realizarPago() {
       const url = "http://localhost:5023/api/v1/Pago";
 
@@ -80,8 +188,8 @@ export default {
           console.error("Ocurrió un error durante el pago:", error);
         });
     },
-  },
-};
+  };
+
 </script>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
