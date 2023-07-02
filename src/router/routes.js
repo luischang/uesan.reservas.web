@@ -67,6 +67,10 @@ const routes = [
         path: "mostrarCliente",
         component: () => import("components/Cliente/MostrarCliente.vue"),
       },
+      {
+        path: "/mostrarSalaEventos",
+        component: () => import("pages/MostrarSalaEventos.vue"),
+      },
     ],
   },
 
