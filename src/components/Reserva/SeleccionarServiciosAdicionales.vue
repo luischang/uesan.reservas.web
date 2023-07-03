@@ -85,6 +85,10 @@ export default {
         // La habitación ya está seleccionada, la eliminamos del array
         this.servicioSeleccionado.splice(index, 1);
       }
+      console.log(
+        "Servicios seleccionadas:",
+        this.servicioSeleccionado
+      );
     },
     closeModal() {
       this.$emit("close-modal");

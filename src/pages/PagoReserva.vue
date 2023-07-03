@@ -1,13 +1,42 @@
 <template>
   <div class="container">
     <h5 class="title_cont">PAGO DE LA RESERVA</h5>
-    <!-- Resto del código HTML -->
-
     <div class="payment-container">
-      <h5>Detalles de Pago</h5>
-      <p class="payment-label">Monto Total: {{ montoTotal }}</p>
-      <p class="payment-label">Detalle de la Reserva: {{ reservaDetalle }}</p>
-
+      <h5>Detalles de la Reserva:</h5>
+      <div class="tablaHabitaciones" v-if="!isLoading">
+        <h5>Detalle de Habitaciones</h5>
+        <q-table
+            :rows="habitaciones"
+            :columns="columnasHabitaciones"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
+      <div class="tablaServicios" v-if="!isLoading2">
+        <h5>Detalle de Servicios</h5>
+        <q-table
+            :rows="servicios"
+            :columns="columnasServicios"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
+      <div class="tablaSalas" v-if="!isLoading3">
+        <h5>Detalle de Salas de Eventos</h5>
+        <q-table
+            :rows="salas"
+            :columns="columnasSalas"
+            row-key="id"
+            :pagination="true"
+            :rows-per-page-options="[10, 20, 50]"
+            class="table"
+          ></q-table>
+      </div>
+      <h5>Monto Total: {{ montoTotal }}</h5>
       <div class="payment-form">
         <label for="card-number">Número de tarjeta:</label>
         <input type="text" id="card-number" v-model="numeroTarjeta" pattern="[0-9]{16}" maxlength="16" placeholder="Ingrese el número de tarjeta (16 dígitos)" required />
@@ -20,36 +49,6 @@
 
         <label for="security-code">Código de seguridad:</label>
         <input type="text" id="security-code" v-model="codigoSeguridad" pattern="[0-9]{3}" maxlength="3" placeholder="Ingrese el código de seguridad (3 dígitos)" required />
-      </div>
-      <div class="tablaHabitaciones" v-if="!isLoading">
-        <q-table
-            :rows="habitaciones"
-            :columns="columnasHabitaciones"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
-      </div>
-      <div class="tablaServicios" v-if="!isLoading2">
-        <q-table
-            :rows="servicios"
-            :columns="columnasServicios"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
-      </div>
-      <div class="tablaSalas" v-if="!isLoading3">
-        <q-table
-            :rows="salas"
-            :columns="columnasSalas"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
       </div>
       <q-btn @click="realizarPago" color="primary">Realizar Pago</q-btn>
     </div>
@@ -111,6 +110,7 @@ export default {
     console.log("Estas son los servicios" + this.serviciosResult) 
     this.getServiciosByIds();
     this.getSalasByIds();
+    this.calcularMontoTotal();
   },
 
   methods: {
@@ -162,8 +162,23 @@ export default {
     getSalaById(id) {
       return fetch(`http://localhost:5023/api/SalaDeEventos/TraerId/${id}`)
         .then(response => response.json());
-    }
-  },
+    },
+    calcularMontoTotal() {
+      let total = 0;
+      this.habitaciones.forEach(habitacion => {
+        total += habitacion.precio;
+      });
+
+      this.servicios.forEach(servicio => {
+        total += servicio.precio;
+      });
+
+      this.salas.forEach(sala => {
+        total += sala.precio;
+      });
+
+      this.montoTotal = total;
+    },
     realizarPago() {
       const url = "http://localhost:5023/api/v1/Pago";
 
@@ -188,6 +203,8 @@ export default {
           console.error("Ocurrió un error durante el pago:", error);
         });
     },
+  },
+
   };
 
 </script>
@@ -251,5 +268,13 @@ export default {
 
 .q-btn:hover {
   background-color: #0d8ae8;
+}
+
+.tablaHabitaciones h5,
+.tablaServicios h5,
+.tablaSalas h5 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: "Exo";
 }
 </style>
