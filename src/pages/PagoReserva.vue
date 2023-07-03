@@ -36,7 +36,7 @@
             class="table"
           ></q-table>
       </div>
-      <h5>Monto Total: {{ montoTotal }}</h5>
+      <h5>Monto Total: $ {{ this.montoTotal }}</h5>
       <div class="payment-form">
         <label for="card-number">Número de tarjeta:</label>
         <input type="text" id="card-number" v-model="numeroTarjeta" pattern="[0-9]{16}" maxlength="16" placeholder="Ingrese el número de tarjeta (16 dígitos)" required />
@@ -67,7 +67,7 @@ export default {
       isLoading: true,
       isLoading2: true,
       isLoading3: true,
-      montoTotal: 0,
+      total: 0,
       reservaDetalle: "",
       numeroTarjeta: "",
       titularTarjeta: "",
@@ -94,7 +94,7 @@ export default {
     const habitacionData = localStorage.getItem("habitacionesSeleccionadas");
     this.habitacionesResult = JSON.parse(habitacionData);
 
-    const servicioData = localStorage.getItem("ServiciosAdicionales");
+    const servicioData = localStorage.getItem("servicioSeleccionado");
     this.serviciosResult = JSON.parse(servicioData);
 
     const salaData = localStorage.getItem("SalaEventosSeleccionadas");
@@ -108,6 +108,7 @@ export default {
     this.getHabitacionesByIds();
     console.log("Estas son las habitaciones" + this.habitaciones)
     console.log("Estas son los servicios" + this.serviciosResult) 
+    console.log("Total:"+ this.total)
     this.getServiciosByIds();
     this.getSalasByIds();
     this.calcularMontoTotal();
@@ -119,7 +120,9 @@ export default {
       Promise.all(this.habitacionesResult.map(id => this.getHabitacionById(id)))
         .then(habitacione => {
           this.habitaciones=habitacione;
+          this.total = this.total + this.habitaciones.precio
           this.isLoading = false;
+          this.calcularMontoTotal();
         })
         .catch(error => {
           console.error(error);
@@ -135,7 +138,9 @@ export default {
       Promise.all(this.serviciosResult.map(id => this.getServicioById(id)))
         .then(servici => {
           this.servicios=servici;
+          this.total = this.total + this.servicios.precio
           this.isLoading2 = false;
+          this.calcularMontoTotal();
         })
         .catch(error => {
           console.error(error);
@@ -151,7 +156,9 @@ export default {
       Promise.all(this.salasResult.map(id => this.getSalaById(id)))
         .then(sal => {
           this.salas=sal;
+          this.total = this.total + this.salas.precio
           this.isLoading3 = false;
+          this.calcularMontoTotal();
           console.log("Estas son los ids recibidos" + this.salasResult) 
         })
         .catch(error => {
@@ -163,6 +170,30 @@ export default {
       return fetch(`http://localhost:5023/api/SalaDeEventos/TraerId/${id}`)
         .then(response => response.json());
     },
+
+    detalleHabitacion() {
+      for (let index = 0; index < this.habitacionesResult.length; index++) {
+        const detallehabitacion = {
+        idReserva: this.habitacionesResult.idReserva,
+        idHabitacion: index,
+      };
+
+      axios.post('http://localhost:5023/api/DetalleReserva', detallehabitacion)
+        .then(response => {
+          this.mostrarMensaje();
+          this.idReserva = detallehabitacion.idReserva;
+          this.idHabitacion = detallehabitacion.idHabitacion;
+        })
+        .catch(error => {
+          this.$q.notify({
+            message: 'Error al crear la habitacion',
+            color: 'negative'
+          });
+        });
+      }
+      
+    },
+    
     calcularMontoTotal() {
       let total = 0;
       this.habitaciones.forEach(habitacion => {
@@ -191,6 +222,7 @@ export default {
         codigoSeguridad: this.codigoSeguridad,
       };
 
+
       axios
         .post(url, data)
         .then(response => {
@@ -206,7 +238,7 @@ export default {
   },
 
   };
-
+      
 </script>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
