@@ -52,6 +52,10 @@ const routes = [
         component: () => import("pages/CreateHabitacion.vue"),
       },
       {
+        path: "reporteHabitaciones",
+        component: () => import("pages/ReporteHabitaciones.vue"),
+      },
+      {
         path: "seleHabitacion",
         component: () => import("components/Reserva/SelectHabitacion.vue"),
       },
@@ -71,6 +75,11 @@ const routes = [
         path: "/mostrarSalaEventos",
         component: () => import("pages/MostrarSalaEventos.vue"),
       },
+      {
+        path: "/reporteQuejas",
+        component: () => import("pages/ReporteQuejas.vue"),
+      },
+
       {
         path: "/Data_Admin",
         component: () => import("components/AdminData/DatosAdmin.vue"),

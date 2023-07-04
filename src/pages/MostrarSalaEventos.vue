@@ -9,6 +9,8 @@
           <th>Estado</th>
           <th>Tipo de Evento</th>
           <th>Precio</th>
+          <th>Fecha de Inicio</th>
+          <th>Fecha de Fin</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +21,8 @@
           </td>
           <td>{{ getTipoEvento(sala.idTipoEvento) }}</td>
           <td class="precio">{{ sala.precio }}</td>
+          <td>{{ formatFecha(sala.fechaInicio) }}</td>
+          <td>{{ formatFecha(sala.fechaFin) }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,10 +41,30 @@ export default {
   },
   methods: {
     fetchData() {
-      fetch("http://localhost:5023/api/SalaDeEventos/Traer")
-        .then((response) => response.json())
+      const salaEndpoint = "http://localhost:5023/api/SalaDeEventos/Traer";
+      const detalleEndpoint =
+        "http://localhost:5023/api/DetalleSalaDeEventos/GetAll";
+
+      Promise.all([fetch(salaEndpoint), fetch(detalleEndpoint)])
+        .then((responses) => {
+          return Promise.all(responses.map((response) => response.json()));
+        })
         .then((data) => {
-          this.salas = data;
+          const salas = data[0];
+          const detalles = data[1];
+
+          this.salas = salas.map((sala) => {
+            const detalle = detalles.find(
+              (detalle) => detalle.idSalaEvento === sala.idSalaEvento
+            );
+
+            if (detalle) {
+              sala.fechaInicio = detalle.fechaInicio;
+              sala.fechaFin = detalle.fechaFin;
+            }
+
+            return sala;
+          });
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -57,6 +81,18 @@ export default {
         default:
           return "Desconocido";
       }
+    },
+    formatFecha(fecha) {
+      if (!fecha) {
+        return ""; // Retornar cadena vacía si no hay fecha disponible
+      }
+
+      const date = new Date(fecha);
+      const dia = date.getDate();
+      const mes = date.getMonth() + 1;
+      const anio = date.getFullYear();
+
+      return `${dia}-${mes}-${anio}`;
     },
   },
 };

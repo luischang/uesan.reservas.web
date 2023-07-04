@@ -18,6 +18,17 @@
           type="number"
           id="capacidad"
           v-model="habitacion.capacidad"
+          min="1"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input
+          type="number"
+          id="precio"
+          v-model="habitacion.precio"
+          min="1"
           required
         />
       </div>
@@ -28,6 +39,7 @@
           type="number"
           id="cant_Camas"
           v-model="habitacion.cant_Camas"
+          min="1"
           required
         />
       </div>
@@ -47,6 +59,13 @@
 
       <button type="submit">Guardar</button>
     </form>
+    <div
+      v-if="showAlert"
+      class="alert"
+      :style="{ backgroundColor: alertColor }"
+    >
+      {{ alertMessage }}
+    </div>
   </div>
 </template>
 
@@ -56,13 +75,16 @@ export default {
     return {
       habitacion: {
         descripcion: "",
-        capacidad: 0,
-        cant_Camas: 0,
+        capacidad: 1, // Se cambió el valor inicial a 1
+        cant_Camas: 1, // Se cambió el valor inicial a 1
         tipoHabitacion: {
           id_TipoHabi: 0,
           descripcion: "string",
         },
       },
+      showAlert: false,
+      alertMessage: "",
+      alertColor: "#67c23a", // Cambiar a verde: #67c23a
     };
   },
   methods: {
@@ -81,18 +103,23 @@ export default {
           if (response.ok) {
             console.log("Habitación creada exitosamente");
             // Mostrar mensaje de alerta
-            alert("La creación de la habitación se realizó correctamente!!!");
+            this.alertMessage =
+              "La creación de la habitación se realizó correctamente!!!";
             this.showAlert = true;
             // Reiniciar el formulario
             this.habitacion = {
               descripcion: "",
-              capacidad: 0,
-              cant_Camas: 0,
+              capacidad: 1, // Se cambió el valor inicial a 1
+              precio: 1, // Se cambió el valor inicial a 1
+              cant_Camas: 1, // Se cambió el valor inicial a 1
               tipoHabitacion: {
                 id_TipoHabi: 0,
                 descripcion: "string",
               },
             };
+            setTimeout(() => {
+              this.showAlert = false;
+            }, 3000);
           } else {
             console.error("Error al crear la habitación");
           }
@@ -137,6 +164,8 @@ export default {
 }
 .form-group {
   margin-bottom: 1rem;
+  max-width: 215px;
+  font-size: 18px;
 }
 
 label {
@@ -154,7 +183,7 @@ select {
 }
 
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #e06e43;
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -163,11 +192,22 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #f3b163;
 }
 
 h2 {
   margin-bottom: 1rem;
   text-align: center;
+}
+
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #67c23a; /* Agregar color de fondo verde */
+  color: #fff; /* Agregar color de texto blanco */
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
 }
 </style>

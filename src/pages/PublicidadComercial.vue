@@ -25,7 +25,7 @@ export default {
             "¡Reserva ahora y obtén un descuento del 20% en nuestras habitaciones de lujo! " +
             "No pierdas la oportunidad de vivir unas vacaciones inolvidables en nuestro hotel durante esta temporada de verano. ¡Reserva ahora y aprovecha nuestra oferta especial de verano antes de que se agoten las plazas!",
           imagen:
-            "https://www.turisapps.com/public/www/images/blog-post/41.jpg?v=20150612120526",
+            "https://www.larepublica.net/storage/images/2021/01/24/20210124200335.poco-a-poco-1.jpg?mrf-size=m",
           enlace: "https://www.ejemplo.com/oferta-verano",
         },
         {
