@@ -36,7 +36,7 @@
             class="table"
           ></q-table>
       </div>
-      <h5>Monto Total: $ {{ this.montoTotal }}</h5>
+      <h5>Monto Total: USD {{ this.montoTotal }}</h5>
       <div class="payment-form">
         <label for="card-number">Número de tarjeta:</label>
         <input type="text" id="card-number" v-model="numeroTarjeta" pattern="[0-9]{16}" maxlength="16" placeholder="Ingrese el número de tarjeta (16 dígitos)" required />
@@ -91,6 +91,9 @@ export default {
     };
   },
   created() {
+    const reservaData = localStorage.getItem("IdReservaCreation");
+    this.reservaResult = JSON.parse(reservaData);
+
     const habitacionData = localStorage.getItem("habitacionesSeleccionadas");
     this.habitacionesResult = JSON.parse(habitacionData);
 
@@ -175,7 +178,7 @@ export default {
       for (let index = 0; index < this.habitacionesResult.length; index++) {
         const detallehabitacion = {
         idReserva: this.habitacionesResult.idReserva,
-        idHabitacion: index,
+        idHabitacion: this.habitacionesResult[index],
       };
 
       axios.post('http://localhost:5023/api/DetalleReserva', detallehabitacion)
@@ -183,6 +186,7 @@ export default {
           this.mostrarMensaje();
           this.idReserva = detallehabitacion.idReserva;
           this.idHabitacion = detallehabitacion.idHabitacion;
+          console.log("Se creo el detalle habitacion")
         })
         .catch(error => {
           this.$q.notify({
@@ -193,7 +197,58 @@ export default {
       }
       
     },
+
+    detalleServicio() {
+      for (let index = 0; index < this.serviciosResult.length; index++) {
+        const detalleservicio = {
+        idReserva: this.serviciosResult.idServicio,
+        idServicio: this.serviciosResult[index],
+      };
+
+      axios.post('http://localhost:5023/api/v1/DetalleServicios', detalleservicio)
+        .then(response => {
+          this.mostrarMensaje();
+          this.idReserva = detalleservicio.idReserva;
+          this.idServicio = detalleservicio.idServicio;
+          console.log("Se creo el detalle servicio")
+        })
+        .catch(error => {
+          this.$q.notify({
+            message: 'Error al crear el servicio',
+            color: 'negative'
+          });
+        });
+      }
+      
+    },
+
+    detalleSala() {
+      for (let index = 0; index < this.salasResult.length; index++) {
+        const detallesala = {
+        idReserva: this.salasResult.idSala,
+        idSala: this.salasResult[index],
+      };
+
+      axios.post('http://localhost:5023/api/DetalleSalaDeEventos/Crear', detallesala)
+        .then(response => {
+          this.mostrarMensaje();
+          this.idReserva = detallesala.idReserva;
+          this.idSala = detallesala.idSala;
+          this.fechaInicio = '';
+          this.fechaFin = '';
+          console.log("Se creo el detalle sala")
+        })
+        .catch(error => {
+          this.$q.notify({
+            message: 'Error al crear la sala',
+            color: 'negative'
+          });
+        });
+      }
+      
+    },
     
+
     calcularMontoTotal() {
       let total = 0;
       this.habitaciones.forEach(habitacion => {
@@ -214,14 +269,10 @@ export default {
       const url = "http://localhost:5023/api/v1/Pago";
 
       const data = {
-        montoTotal: this.montoTotal,
-        reservaDetalle: this.reservaDetalle,
-        numeroTarjeta: this.numeroTarjeta,
-        titularTarjeta: this.titularTarjeta,
-        fechaVencimiento: this.fechaVencimiento,
-        codigoSeguridad: this.codigoSeguridad,
+        idReserva: this.reservaResult,
+        metodoPago: 1,
+        estado: 1,
       };
-
 
       axios
         .post(url, data)
@@ -236,8 +287,9 @@ export default {
         });
     },
   },
+};
 
-  };
+
       
 </script>
 <style>
