@@ -86,9 +86,10 @@
       <div class="footer-content">
         <p>Todos los derechos reservados &copy; 2023 Site Reservas</p>
         <p>
-          <a href="https://ejemplo1.com">Enlace ejemplo 1</a> |
-          <a href="https://ejemplo2.com">Enlace ejemplo 2</a> |
-          <a href="https://ejemplo3.com">Enlace ejemplo 3</a>
+          <a href="http://localhost:9000/?#/politicaPrivacidad"
+            >Politica de Empresa</a
+          >
+          |
         </p>
       </div>
     </div>
