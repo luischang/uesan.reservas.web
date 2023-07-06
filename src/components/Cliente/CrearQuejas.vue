@@ -21,8 +21,8 @@
       </q-card-section>
       <q-card-actions align="around">
         <q-btn
-          @click="goToInicio"
-          label="Inicio"
+          @click="goToRegresar"
+          label="Regresar"
           color="orange"
           class="home-btn"
         ></q-btn>
@@ -79,8 +79,8 @@ export default {
         color: "positive",
       });
     },
-    goToInicio() {
-      this.$router.push("/");
+    goToRegresar() {
+      this.$router.push("/MostrarCliente");
     },
     goToReporte() {
       this.$router.push("/ReporteQuejas");

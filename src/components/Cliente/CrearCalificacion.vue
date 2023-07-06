@@ -97,7 +97,7 @@ export default {
       });
     },
     goToRegresar() {
-      this.$router.push("/MostrarCliente2");
+      this.$router.push("/MostrarCliente");
     },
     goToReporte() {
       this.$router.push("/ReporteCalificacion");

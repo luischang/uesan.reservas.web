@@ -84,6 +84,10 @@ const routes = [
         component: () => import("components/Cliente/CrearQuejas.vue"),
       },
       {
+        path: "reporteCalificacion",
+        component: () => import("pages/ReporteCalificacion.vue"),
+      },
+      {
         path: "crearCalificacion",
         component: () => import("components/Cliente/CrearCalificacion.vue"),
       },

@@ -60,12 +60,6 @@
         class="home-btn"
       ></q-btn>
       <q-btn
-        @click="goToCrearReservas"
-        label="Crear Reservas"
-        color="primary"
-        class="create-btn"
-      ></q-btn>
-      <q-btn
         @click="goToCrearCalificacion"
         label="Crear Calificacion"
         color="primary"
@@ -89,6 +83,46 @@ export default {
           label: "Nombre",
           align: "left",
           field: "nombre",
+          sortable: true,
+        },
+        {
+          name: "apellido",
+          required: true,
+          label: "Apellido",
+          align: "left",
+          field: "apellido",
+          sortable: true,
+        },
+        {
+          name: "email",
+          required: true,
+          label: "Email",
+          align: "left",
+          field: "email",
+          sortable: true,
+        },
+        {
+          name: "direccion",
+          required: true,
+          label: "Direccion",
+          align: "left",
+          field: "direccion",
+          sortable: true,
+        },
+        {
+          name: "telefono",
+          required: true,
+          label: "Telefono",
+          align: "left",
+          field: "telefono",
+          sortable: true,
+        },
+        {
+          name: "puntos",
+          required: true,
+          label: "Puntos",
+          align: "left",
+          field: "puntos",
           sortable: true,
         },
       ],
@@ -222,9 +256,6 @@ export default {
     },
     goToInicioReserva() {
       this.$router.push("/");
-    },
-    goToCrearReservas() {
-      this.$router.push("/CrearReservas");
     },
     goToCrearCalificacion() {
       this.$router.push("/CrearCalificacion");
