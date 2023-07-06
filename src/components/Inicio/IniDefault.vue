@@ -65,7 +65,11 @@
       <!-- Botón para abrir la ventana emergente -->
       <!-- Ventana emergente -->
       <Modal v-if="showModal">
-        <div @click="set_login">
+        <div
+          @click="set_login"
+          @mouseover="addHandCursor"
+          @mouseleave="removeHandCursor"
+        >
           <h3>Ofertas Unicas</h3>
           <ul>
             <li v-for="oferta in ofertas" :key="oferta.id">
@@ -286,7 +290,9 @@
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
-
+.hand-cursor {
+  cursor: pointer;
+}
 .testimonial img {
   width: 100px;
   height: 100px;
@@ -483,6 +489,14 @@ export default {
     formatDate(value) {
       const options = { year: "numeric", month: "2-digit", day: "2-digit" };
       return new Date(value).toLocaleDateString("es-ES", options);
+    },
+    addHandCursor() {
+      // Agregar una clase que define el cursor como una mano de hacer clic
+      this.$el.classList.add("hand-cursor");
+    },
+    removeHandCursor() {
+      // Remover la clase del cursor cuando el ratón sale del contenedor
+      this.$el.classList.remove("hand-cursor");
     },
   },
   computed: {

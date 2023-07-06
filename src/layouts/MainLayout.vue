@@ -132,7 +132,7 @@ export default defineComponent({
       if (this.userResult != null && this.userResult.idTipo == 2) {
         this.$router.push("reservasOrder");
       } else if (this.userResult != null && this.userResult.idTipo == 1) {
-        this.$router.push("Data_Admin");
+        this.$router.push("/reportAdmin");
       } else {
         this.$router.push("/");
       }

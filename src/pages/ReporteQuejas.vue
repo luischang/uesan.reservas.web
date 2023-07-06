@@ -21,6 +21,7 @@
       </tbody>
     </table>
   </div>
+  <q-btn class="botonQ" @click="regresarInicio">Regresar</q-btn>
 </template>
 
 <script>
@@ -52,6 +53,9 @@ export default {
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
       return `${day}-${month}-${year}`;
+    },
+    regresarInicio() {
+      this.$router.push("/reportAdmin");
     },
   },
 };
@@ -118,5 +122,17 @@ td {
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+.botonQ {
+  position: absolute;
+  margin-left: 380px;
+  font-family: "Exo";
+  color: white;
+  background-color: #d48208;
+  left: 20%;
+}
+.botonQ:hover {
+  color: black;
+  background-color: #d9dd92;
 }
 </style>

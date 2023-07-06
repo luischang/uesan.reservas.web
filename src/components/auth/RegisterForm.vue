@@ -16,7 +16,13 @@
       >
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="email" v-model="form.email" required />
+          <input
+            type="email"
+            id="email"
+            v-model="form.email"
+            required
+            @input="isEmailValid"
+          />
         </div>
         <div class="form-group">
           <label for="contraseña">Contraseña:</label>
@@ -224,6 +230,7 @@ export default {
         direccion: "",
         telefono: "",
       },
+      valid: null,
     };
   },
   methods: {
@@ -266,6 +273,48 @@ export default {
         );
         return; // Detener el proceso de inicio de sesión
       }
+      if (this.valid != true) {
+        this.showNotification(
+          "Verificar Correo: ___@__.com",
+          "red",
+          "top",
+          2000
+        );
+        return;
+      }
+      if (this.form.nombre == "") {
+        this.showNotification(
+          "Verificar nombre, no dejar vacio",
+          "red",
+          "top",
+          2000
+        );
+        return;
+      } else if (this.form.apellido == "") {
+        this.showNotification(
+          "Verificar apellido, no dejar vacio",
+          "red",
+          "top",
+          2000
+        );
+        return;
+      } else if (this.form.direccion == "") {
+        this.showNotification(
+          "Verificar direccion, no dejar vacio",
+          "red",
+          "top",
+          2000
+        );
+        return;
+      } else if (this.form.telefono == "") {
+        this.showNotification(
+          "Verificar telefono, no dejar vacio",
+          "red",
+          "top",
+          2000
+        );
+        return;
+      }
       var url = "http://localhost:5023/api/Usuario/SignUp";
 
       axios
@@ -285,6 +334,20 @@ export default {
       //window.location.href = "http://localhost:9000/?#/register";
       this.$router.push("/Login");
     },
+    isEmailValid() {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // Expresión regular para validar el email
+      this.valid = emailPattern.test(this.form.email);
+
+      if (this.valid != true) {
+        this.showNotification(
+          "Verificar Correo: ___@__.com",
+          "red",
+          "top",
+          2000
+        );
+      }
+    },
   },
+  computed: {},
 };
 </script>

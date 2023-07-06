@@ -84,6 +84,11 @@ const routes = [
         path: "/Data_Admin",
         component: () => import("components/AdminData/DatosAdmin.vue"),
       },
+      {
+        path: "/reportAdmin",
+        component: () =>
+          import("components/AdminData/CreacionesAndReportes.vue"),
+      },
     ],
   },
 

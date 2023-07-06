@@ -58,6 +58,7 @@
       </div>
 
       <button type="submit">Guardar</button>
+      <q-btn class="botonQ" @click="regresarInicio">Regresar</q-btn>
     </form>
     <div
       v-if="showAlert"
@@ -128,6 +129,9 @@ export default {
           console.error("Error en la solicitud:", error);
         });
     },
+    regresarInicio() {
+      this.$router.push("/reportAdmin");
+    },
   },
 };
 </script>
@@ -148,7 +152,18 @@ export default {
   opacity: 0.9;
   z-index: -1;
 }
-
+.botonQ {
+  position: absolute;
+  margin-left: 380px;
+  font-family: "Exo";
+  color: white;
+  background-color: #d48208;
+  left: 20%;
+}
+.botonQ:hover {
+  color: black;
+  background-color: #d9dd92;
+}
 .form-main {
   max-width: 600px;
   margin: 0 auto;
@@ -183,7 +198,7 @@ select {
 }
 
 button[type="submit"] {
-  background-color: #e06e43;
+  background-color: #d48208;
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -192,7 +207,8 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #f3b163;
+  background-color: #d9dd92;
+  color: black;
 }
 
 h2 {

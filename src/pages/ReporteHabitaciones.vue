@@ -36,6 +36,7 @@
       </tbody>
     </table>
   </div>
+  <q-btn class="botonQ" @click="regresarInicio">Regresar</q-btn>
 </template>
 
 <script>
@@ -56,6 +57,11 @@ export default {
       .catch((error) => {
         console.error(error);
       });
+  },
+  methods: {
+    regresarInicio() {
+      this.$router.push("/reportAdmin");
+    },
   },
 };
 </script>
@@ -88,7 +94,19 @@ export default {
   margin-top: 80px;
   margin-bottom: 100px;
 }
-
+.botonQ {
+  position: absolute;
+  margin-left: 380px;
+  margin-bottom: 220px;
+  font-family: "Exo";
+  color: white;
+  background-color: #d48208;
+  left: 20%;
+}
+.botonQ:hover {
+  color: black;
+  background-color: #d9dd92;
+}
 h1 {
   text-align: center;
   font-size: 24px;
