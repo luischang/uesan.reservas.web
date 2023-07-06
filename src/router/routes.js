@@ -79,7 +79,14 @@ const routes = [
         path: "/reporteQuejas",
         component: () => import("pages/ReporteQuejas.vue"),
       },
-
+      {
+        path: "crearQuejas",
+        component: () => import("components/Cliente/CrearQuejas.vue"),
+      },
+      {
+        path: "crearCalificacion",
+        component: () => import("components/Cliente/CrearCalificacion.vue"),
+      },
       {
         path: "/Data_Admin",
         component: () => import("components/AdminData/DatosAdmin.vue"),
