@@ -75,7 +75,7 @@ export default {
         });
     },
     goToInicio() {
-      this.$router.push("/");
+      this.$router.push("/mostrarCliente");
     },
   },
 };

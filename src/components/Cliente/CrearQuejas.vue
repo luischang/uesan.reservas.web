@@ -26,12 +26,6 @@
           color="orange"
           class="home-btn"
         ></q-btn>
-        <q-btn
-          @click="goToReporte"
-          label="Reporte de Quejas"
-          color="primary"
-          class="report-btn"
-        ></q-btn>
       </q-card-actions>
     </q-card>
   </div>

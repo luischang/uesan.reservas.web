@@ -154,7 +154,7 @@ export default defineComponent({
       if (this.userResult.idTipo == 1) {
         this.$router.push("/Data_Admin");
       } else {
-        this.$router.push("/");
+        this.$router.push("/mostrarCliente");
       }
     },
   },

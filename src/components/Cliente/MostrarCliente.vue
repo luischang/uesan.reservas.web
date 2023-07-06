@@ -26,12 +26,6 @@
     </q-card-section>
     <q-card-actions align="around">
       <q-btn
-        @click="goToInicio"
-        label="Inicio"
-        color="orange"
-        class="home-btn"
-      ></q-btn>
-      <q-btn
         @click="goToCrearQuejas"
         label="Crear Quejas"
         color="primary"
@@ -53,12 +47,6 @@
       ></q-table>
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn
-        @click="goToInicioReserva"
-        label="Inicio"
-        color="orange"
-        class="home-btn"
-      ></q-btn>
       <q-btn
         @click="goToCrearCalificacion"
         label="Crear Calificacion"
@@ -303,7 +291,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   margin-bottom: 24px;
-  color: #ffffff; /* Color del texto */
+  color: black; /* Color del texto */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra del texto */
 }
 
