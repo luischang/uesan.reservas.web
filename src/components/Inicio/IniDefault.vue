@@ -65,11 +65,7 @@
       <!-- Botón para abrir la ventana emergente -->
       <!-- Ventana emergente -->
       <Modal v-if="showModal">
-        <div
-          @click="set_login"
-          @mouseover="addHandCursor"
-          @mouseleave="removeHandCursor"
-        >
+        <div @click="set_login">
           <h3>Ofertas Unicas</h3>
           <ul>
             <li v-for="oferta in ofertas" :key="oferta.id">
