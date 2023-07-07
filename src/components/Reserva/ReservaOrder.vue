@@ -313,9 +313,9 @@ export default {
       }, timeout);
     },
     validarNumero1() {
-      if (parseInt(this.num_Adultos) < 0) {
+      if (parseInt(this.num_Adultos) <= 0) {
         this.showNotification(
-          "El numero no puede ser negativo",
+          "El numero no puede ser negativo o cero",
           "red",
           "top",
           1000

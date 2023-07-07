@@ -148,7 +148,7 @@ export default {
   ); /* Aquí puedes definir el color de fondo que desees */
 }
 .salaEvento-Ocupado {
-  background-color: #d48208;
+  background-color: #a39f99;
   border-radius: 5px;
   font-family: "Exo";
   text-align: center;

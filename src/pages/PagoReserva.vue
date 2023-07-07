@@ -6,49 +6,79 @@
       <div class="tablaHabitaciones" v-if="!isLoading">
         <h5>Detalle de Habitaciones</h5>
         <q-table
-            :rows="habitaciones"
-            :columns="columnasHabitaciones"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
+          :rows="habitaciones"
+          :columns="columnasHabitaciones"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+          class="table"
+        ></q-table>
       </div>
       <div class="tablaServicios" v-if="!isLoading2">
         <h5>Detalle de Servicios</h5>
         <q-table
-            :rows="servicios"
-            :columns="columnasServicios"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
+          :rows="servicios"
+          :columns="columnasServicios"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+          class="table"
+        ></q-table>
       </div>
       <div class="tablaSalas" v-if="!isLoading3">
         <h5>Detalle de Salas de Eventos</h5>
         <q-table
-            :rows="salas"
-            :columns="columnasSalas"
-            row-key="id"
-            :pagination="true"
-            :rows-per-page-options="[10, 20, 50]"
-            class="table"
-          ></q-table>
+          :rows="salas"
+          :columns="columnasSalas"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+          class="table"
+        ></q-table>
       </div>
       <h5>Monto Total: USD {{ this.montoTotal }}</h5>
       <div class="payment-form">
         <label for="card-number">Número de tarjeta:</label>
-        <input type="text" id="card-number" v-model="numeroTarjeta" pattern="[0-9]{16}" maxlength="16" placeholder="Ingrese el número de tarjeta (16 dígitos)" required />
+        <input
+          type="text"
+          id="card-number"
+          v-model="numeroTarjeta"
+          pattern="[0-9]{16}"
+          maxlength="16"
+          placeholder="Ingrese el número de tarjeta (16 dígitos)"
+          required
+        />
 
         <label for="card-holder">Titular de la tarjeta:</label>
-        <input type="text" id="card-holder" v-model="titularTarjeta" pattern="[A-Za-z\s]+" placeholder="Ingrese el titular de la tarjeta" required />
+        <input
+          type="text"
+          id="card-holder"
+          v-model="titularTarjeta"
+          pattern="[A-Za-z\s]+"
+          placeholder="Ingrese el titular de la tarjeta"
+          required
+        />
 
         <label for="expiration-date">Fecha de vencimiento:</label>
-        <input type="text" id="expiration-date" v-model="fechaVencimiento" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="MM/YY" required />
+        <input
+          type="text"
+          id="expiration-date"
+          v-model="fechaVencimiento"
+          pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+          placeholder="MM/YY"
+          required
+        />
 
         <label for="security-code">Código de seguridad:</label>
-        <input type="text" id="security-code" v-model="codigoSeguridad" pattern="[0-9]{3}" maxlength="3" placeholder="Ingrese el código de seguridad (3 dígitos)" required />
+        <input
+          type="text"
+          id="security-code"
+          v-model="codigoSeguridad"
+          pattern="[0-9]{3}"
+          maxlength="3"
+          placeholder="Ingrese el código de seguridad (3 dígitos)"
+          required
+        />
       </div>
       <q-btn @click="realizarPago" color="primary">Realizar Pago</q-btn>
     </div>
@@ -75,19 +105,62 @@ export default {
       codigoSeguridad: "",
       habitaciones: [],
       columnasHabitaciones: [
-          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
-          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
-          ],
+        {
+          name: "descripcion",
+          required: true,
+          label: "Descripción",
+          align: "left",
+          field: "descripcion",
+          sortable: true,
+        },
+        {
+          name: "precio",
+          required: true,
+          label: "Precio ($)",
+          align: "left",
+          field: "precio",
+          sortable: true,
+        },
+      ],
       servicios: [],
       columnasServicios: [
-          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
-          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
-          ],
+        {
+          name: "descripcion",
+          required: true,
+          label: "Descripción",
+          align: "left",
+          field: "descripcion",
+          sortable: true,
+        },
+        {
+          name: "precio",
+          required: true,
+          label: "Precio ($)",
+          align: "left",
+          field: "precio",
+          sortable: true,
+        },
+      ],
       salas: [],
       columnasSalas: [
-          { name: 'descripcion', required: true, label: 'Descripción', align: 'left', field: 'descripcion', sortable: true },
-          { name: 'precio', required: true, label: 'Precio ($)', align: 'left', field: 'precio', sortable: true },
-          ],
+        {
+          name: "descripcion",
+          required: true,
+          label: "Descripción",
+          align: "left",
+          field: "descripcion",
+          sortable: true,
+        },
+        {
+          name: "precio",
+          required: true,
+          label: "Precio ($)",
+          align: "left",
+          field: "precio",
+          sortable: true,
+        },
+      ],
+      habEstado: [],
     };
   },
   created() {
@@ -109,9 +182,9 @@ export default {
 
   mounted() {
     this.getHabitacionesByIds();
-    console.log("Estas son las habitaciones" + this.habitaciones)
-    console.log("Estas son los servicios" + this.serviciosResult) 
-    console.log("Total:"+ this.total)
+    console.log("Estas son las habitaciones" + this.habitaciones);
+    console.log("Estas son los servicios" + this.serviciosResult);
+    console.log("Total:" + this.total);
     this.getServiciosByIds();
     this.getSalasByIds();
     this.calcularMontoTotal();
@@ -120,146 +193,156 @@ export default {
   methods: {
     // Resto de los métodos existentes
     getHabitacionesByIds() {
-      Promise.all(this.habitacionesResult.map(id => this.getHabitacionById(id)))
-        .then(habitacione => {
-          this.habitaciones=habitacione;
-          this.total = this.total + this.habitaciones.precio
+      Promise.all(
+        this.habitacionesResult.map((id) => this.getHabitacionById(id))
+      )
+        .then((habitacione) => {
+          this.habitaciones = habitacione;
+          this.total = this.total + this.habitaciones.precio;
           this.isLoading = false;
           this.calcularMontoTotal();
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           this.isLoading = false;
         });
     },
     getHabitacionById(id) {
-      return fetch(`http://localhost:5023/api/Habitacion/${id}`)
-        .then(response => response.json());
+      return fetch(`http://localhost:5023/api/Habitacion/${id}`).then(
+        (response) => response.json()
+      );
     },
 
     getServiciosByIds() {
-      Promise.all(this.serviciosResult.map(id => this.getServicioById(id)))
-        .then(servici => {
-          this.servicios=servici;
-          this.total = this.total + this.servicios.precio
+      Promise.all(this.serviciosResult.map((id) => this.getServicioById(id)))
+        .then((servici) => {
+          this.servicios = servici;
+          this.total = this.total + this.servicios.precio;
           this.isLoading2 = false;
           this.calcularMontoTotal();
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           this.isLoading2 = false;
         });
     },
     getServicioById(id) {
-      return fetch(`http://localhost:5023/api/v1/Servicio/${id}`)
-        .then(response => response.json());
+      return fetch(`http://localhost:5023/api/v1/Servicio/${id}`).then(
+        (response) => response.json()
+      );
     },
 
     getSalasByIds() {
-      Promise.all(this.salasResult.map(id => this.getSalaById(id)))
-        .then(sal => {
-          this.salas=sal;
-          this.total = this.total + this.salas.precio
+      Promise.all(this.salasResult.map((id) => this.getSalaById(id)))
+        .then((sal) => {
+          this.salas = sal;
+          this.total = this.total + this.salas.precio;
           this.isLoading3 = false;
           this.calcularMontoTotal();
-          console.log("Estas son los ids recibidos" + this.salasResult) 
+          console.log("Estas son los ids recibidos" + this.salasResult);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           this.isLoading3 = false;
         });
     },
     getSalaById(id) {
-      return fetch(`http://localhost:5023/api/SalaDeEventos/TraerId/${id}`)
-        .then(response => response.json());
+      return fetch(
+        `http://localhost:5023/api/SalaDeEventos/TraerId/${id}`
+      ).then((response) => response.json());
     },
 
     detalleHabitacion() {
       for (let index = 0; index < this.habitacionesResult.length; index++) {
         const detallehabitacion = {
-        idReserva: this.habitacionesResult.idReserva,
-        idHabitacion: this.habitacionesResult[index],
-      };
+          idReserva: this.habitacionesResult.idReserva,
+          idHabitacion: this.habitacionesResult[index],
+        };
 
-      axios.post('http://localhost:5023/api/DetalleReserva', detallehabitacion)
-        .then(response => {
-          this.mostrarMensaje();
-          this.idReserva = detallehabitacion.idReserva;
-          this.idHabitacion = detallehabitacion.idHabitacion;
-          console.log("Se creo el detalle habitacion")
-        })
-        .catch(error => {
-          this.$q.notify({
-            message: 'Error al crear la habitacion',
-            color: 'negative'
+        axios
+          .post("http://localhost:5023/api/DetalleReserva", detallehabitacion)
+          .then((response) => {
+            this.mostrarMensaje();
+            this.idReserva = detallehabitacion.idReserva;
+            this.idHabitacion = detallehabitacion.idHabitacion;
+            console.log("Se creo el detalle habitacion");
+          })
+          .catch((error) => {
+            this.$q.notify({
+              message: "Error al crear la habitacion",
+              color: "negative",
+            });
           });
-        });
       }
-      
     },
 
     detalleServicio() {
       for (let index = 0; index < this.serviciosResult.length; index++) {
         const detalleservicio = {
-        idReserva: this.serviciosResult.idServicio,
-        idServicio: this.serviciosResult[index],
-      };
+          idReserva: this.serviciosResult.idServicio,
+          idServicio: this.serviciosResult[index],
+        };
 
-      axios.post('http://localhost:5023/api/v1/DetalleServicios', detalleservicio)
-        .then(response => {
-          this.mostrarMensaje();
-          this.idReserva = detalleservicio.idReserva;
-          this.idServicio = detalleservicio.idServicio;
-          console.log("Se creo el detalle servicio")
-        })
-        .catch(error => {
-          this.$q.notify({
-            message: 'Error al crear el servicio',
-            color: 'negative'
+        axios
+          .post(
+            "http://localhost:5023/api/v1/DetalleServicios",
+            detalleservicio
+          )
+          .then((response) => {
+            this.mostrarMensaje();
+            this.idReserva = detalleservicio.idReserva;
+            this.idServicio = detalleservicio.idServicio;
+            console.log("Se creo el detalle servicio");
+          })
+          .catch((error) => {
+            this.$q.notify({
+              message: "Error al crear el servicio",
+              color: "negative",
+            });
           });
-        });
       }
-      
     },
 
     detalleSala() {
       for (let index = 0; index < this.salasResult.length; index++) {
         const detallesala = {
-        idReserva: this.salasResult.idSala,
-        idSala: this.salasResult[index],
-      };
+          idReserva: this.salasResult.idSala,
+          idSala: this.salasResult[index],
+        };
 
-      axios.post('http://localhost:5023/api/DetalleSalaDeEventos/Crear', detallesala)
-        .then(response => {
-          this.mostrarMensaje();
-          this.idReserva = detallesala.idReserva;
-          this.idSala = detallesala.idSala;
-          this.fechaInicio = '';
-          this.fechaFin = '';
-          console.log("Se creo el detalle sala")
-        })
-        .catch(error => {
-          this.$q.notify({
-            message: 'Error al crear la sala',
-            color: 'negative'
+        axios
+          .post(
+            "http://localhost:5023/api/DetalleSalaDeEventos/Crear",
+            detallesala
+          )
+          .then((response) => {
+            this.mostrarMensaje();
+            this.idReserva = detallesala.idReserva;
+            this.idSala = detallesala.idSala;
+            this.fechaInicio = "";
+            this.fechaFin = "";
+            console.log("Se creo el detalle sala");
+          })
+          .catch((error) => {
+            this.$q.notify({
+              message: "Error al crear la sala",
+              color: "negative",
+            });
           });
-        });
       }
-      
     },
-    
 
     calcularMontoTotal() {
       let total = 0;
-      this.habitaciones.forEach(habitacion => {
+      this.habitaciones.forEach((habitacion) => {
         total += habitacion.precio;
       });
 
-      this.servicios.forEach(servicio => {
+      this.servicios.forEach((servicio) => {
         total += servicio.precio;
       });
 
-      this.salas.forEach(sala => {
+      this.salas.forEach((sala) => {
         total += sala.precio;
       });
 
@@ -276,21 +359,57 @@ export default {
 
       axios
         .post(url, data)
-        .then(response => {
+        .then((response) => {
           // Manejar la respuesta del pago exitoso
           console.log("Pago realizado correctamente");
           this.$router.push("/confirmacionPago");
         })
-        .catch(error => {
+        .catch((error) => {
           // Manejar el error del pago
           console.error("Ocurrió un error durante el pago:", error);
+        });
+      this.cambiarStatus();
+    },
+    cambiarStatus() {
+      const list = localStorage.getItem("habitacionesSeleccionadas");
+      const parsedList = JSON.parse(list);
+      parsedList.forEach((item) => {
+        this.deleteHabitacion(item);
+      });
+
+      const list2 = localStorage.getItem("SalaEventosSeleccionadas");
+      const parsedList2 = JSON.parse(list2);
+      parsedList2.forEach((item2) => {
+        this.deleteSala(item2);
+        console.log(item2);
+      });
+    },
+    deleteHabitacion(id) {
+      axios
+        .delete(`http://localhost:5023/api/Habitacion?id=${id}`)
+        .then((response) => {
+          console.log("Habitación cambiada");
+          // Realiza cualquier acción adicional después de eliminar la habitación
+        })
+        .catch((error) => {
+          console.error("Error al cambiar la habitación:", error);
+          // Maneja cualquier error que ocurra durante la eliminación
+        });
+    },
+    deleteSala(id) {
+      axios
+        .delete(`http://localhost:5023/api/SalaDeEventos/Delete/${id}`)
+        .then((response) => {
+          console.log("Sala Evento cambiada");
+          // Realiza cualquier acción adicional después de eliminar la habitación
+        })
+        .catch((error) => {
+          console.error("Error al cambiar la Sala Evento:", error);
+          // Maneja cualquier error que ocurra durante la eliminación
         });
     },
   },
 };
-
-
-      
 </script>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);

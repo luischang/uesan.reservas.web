@@ -309,7 +309,7 @@ export default {
         .catch((error) => {
           console.log("Ocurrió un error " + error);
           localStorage.removeItem("userResult");
-          this.showNotification("Ocurrió un error", "red", "top", 2000);
+          this.showNotification("Usuario no registrado", "red", "top", 2000);
         });
     },
     redireccionar() {
