@@ -1,60 +1,63 @@
 <template>
-  <h1>Cliente</h1>
-  <q-card class="report-card">
-    <q-card-section>
-      <q-table
-        :rows="cliente"
-        :columns="columnsCliente"
-        row-key="id"
-        :pagination="true"
-        :rows-per-page-options="[10, 20, 50]"
-        class="table"
-      ></q-table>
-    </q-card-section>
-  </q-card>
-  <h1>Quejas</h1>
-  <q-card class="report-card">
-    <q-card-section>
-      <q-table
-        :rows="quejas"
-        :columns="columnsQuejas"
-        row-key="id"
-        :pagination="true"
-        :rows-per-page-options="[10, 20, 50]"
-        class="table"
-      ></q-table>
-    </q-card-section>
-    <q-card-actions align="around">
-      <q-btn
-        @click="goToCrearQuejas"
-        label="Crear Quejas"
-        color="primary"
-        class="create-btn"
-      ></q-btn>
-    </q-card-actions>
-  </q-card>
-  <h1>Reservas</h1>
+  <div class="background-all"></div>
+  <div class="table-container">
+    <h1>Cliente</h1>
+    <q-card class="report-card">
+      <q-card-section>
+        <q-table
+          class="table centered-table"
+          :rows="cliente"
+          :columns="columnsCliente"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+        ></q-table>
+      </q-card-section>
+    </q-card>
+    <h1>Reservas</h1>
 
-  <q-card class="report-card">
-    <q-card-section>
-      <q-table
-        :rows="reservas"
-        :columns="columnsReservas"
-        row-key="id"
-        :pagination="true"
-        :rows-per-page-options="[10, 20, 50]"
-        class="table"
-      ></q-table>
-    </q-card-section>
-    <q-card-actions align="around">
-      <q-btn
-        @click="goToCrearCalificacion"
-        label="Crear Calificacion"
-        color="primary"
-        class="create-btn"
-      ></q-btn>
-    </q-card-actions>
-  </q-card>
+    <q-card class="report-card">
+      <q-card-section>
+        <q-table
+          class="table centered-table"
+          :rows="reservas"
+          :columns="columnsReservas"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+        ></q-table>
+      </q-card-section>
+      <q-card-actions align="around">
+        <q-btn
+          @click="goToCrearCalificacion"
+          label="Crear Calificacion"
+          color="primary"
+          class="create-btn"
+        ></q-btn>
+      </q-card-actions>
+    </q-card>
+    <h1>Quejas</h1>
+    <q-card class="report-card">
+      <q-card-section>
+        <q-table
+          class="table centered-table"
+          :rows="quejas"
+          :columns="columnsQuejas"
+          row-key="id"
+          :pagination="true"
+          :rows-per-page-options="[10, 20, 50]"
+        ></q-table>
+      </q-card-section>
+      <q-card-actions align="around">
+        <q-btn
+          @click="goToCrearQuejas"
+          label="Crear Quejas"
+          color="primary"
+          class="create-btn"
+        ></q-btn>
+      </q-card-actions>
+    </q-card>
+  </div>
 </template>
 
 <script>
@@ -188,6 +191,10 @@ export default {
     this.fetchCalificaciones();
   },
   methods: {
+    formatDate(value) {
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return new Date(value).toLocaleDateString("es-ES", options);
+    },
     ListaUSuarios() {
       const storedData = localStorage.getItem("userResult");
       this.userResult = JSON.parse(storedData);
@@ -214,14 +221,14 @@ export default {
             this.userResult.idUsuario.toString()
         )
         .then((response) => {
-          this.quejas = response.data;
+          this.quejas = response.data.map((queja) => ({
+            ...queja,
+            fecha: this.formatDate(queja.fecha), // Format the date
+          }));
         })
         .catch((error) => {
           console.error(error);
         });
-    },
-    goToInicio() {
-      this.$router.push("/");
     },
     goToCrearQuejas() {
       this.$router.push("/CrearQuejas");
@@ -236,15 +243,17 @@ export default {
             this.userResult.idUsuario.toString()
         )
         .then((response) => {
-          this.reservas = response.data;
+          this.reservas = response.data.map((reserva) => ({
+            ...reserva,
+            fechaIni: this.formatDate(reserva.fechaIni), // Format the start date
+            fechaFin: this.formatDate(reserva.fechaFin), // Format the end date
+          }));
         })
         .catch((error) => {
           console.error(error);
         });
     },
-    goToInicioReserva() {
-      this.$router.push("/");
-    },
+
     goToCrearCalificacion() {
       this.$router.push("/CrearCalificacion");
     },
@@ -284,6 +293,18 @@ export default {
   background-size: cover;
   background-position: center;
 }
+.background-all {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./src/assets/fondo3.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  z-index: -1;
+}
 
 h1 {
   font-family: "Exo", sans-serif;
@@ -291,7 +312,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   margin-bottom: 24px;
-  color: black; /* Color del texto */
+  color: #ffffff; /* Color del texto */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra del texto */
 }
 
@@ -299,9 +320,9 @@ h1 {
   max-width: 800px;
   width: 100%;
   background-color: rgba(
-    255,
-    255,
-    255,
+    238,
+    120,
+    57,
     0.8
   ); /* Color de fondo con transparencia */
   border-radius: 8px;
@@ -380,5 +401,15 @@ table tbody tr th:nth-child(odd) {
 
 table tbody tr td:nth-child(odd) {
   background-color: #ffffff;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-table {
+  margin: 0 auto;
 }
 </style>

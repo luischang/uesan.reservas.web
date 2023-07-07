@@ -28,6 +28,12 @@
         ></q-btn>
       </q-card-actions>
     </q-card>
+    <q-notification
+      v-model="showNotification"
+      color="green"
+      position="top"
+      message="La queja ha sido enviada"
+    ></q-notification>
   </div>
 </template>
 
@@ -38,17 +44,34 @@ export default {
   data() {
     return {
       descripcion: "",
-      fecha: "",
+      showNotification: false,
+      fecha: new Date().toISOString().slice(0, 10),
       IdUsuario: "",
     };
   },
   methods: {
+    mostrarNotificacion() {
+      var notification = document.createElement("div");
+      notification.textContent = "La queja ha sido enviada";
+      notification.style.backgroundColor = "green";
+      notification.style.color = "#fff";
+      notification.style.padding = "10px";
+      notification.style.borderRadius = "4px";
+      notification.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.15)";
+      notification.style.position = "fixed";
+      notification.style.bottom = "20px";
+      notification.style.left = "50%";
+      notification.style.transform = "translateX(-50%)";
+      notification.style.zIndex = "9999";
+      document.body.appendChild(notification);
+    },
     crearQueja() {
       const storedData = localStorage.getItem("userResult");
       this.userResult = JSON.parse(storedData);
 
       var quejas = {
         descripcion: this.descripcion,
+        fecha: new Date().toISOString().slice(0, 10),
         IdUsuario: this.userResult.idUsuario,
       };
 
@@ -57,6 +80,7 @@ export default {
         .then((response) => {
           this.mostrarMensaje();
           this.descripcion = "";
+          this.showNotification = true;
         })
         .catch((error) => {
           this.$q.notify({
@@ -75,9 +99,6 @@ export default {
     },
     goToRegresar() {
       this.$router.push("/MostrarCliente");
-    },
-    goToReporte() {
-      this.$router.push("/ReporteQuejas");
     },
   },
 };
@@ -159,5 +180,28 @@ export default {
 
 .q-checkbox {
   margin-top: 16px;
+}
+
+.notification-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+}
+
+.notification {
+  color: #fff;
+  font-family: "Exo";
+  font-weight: 15px;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.notification:last-child {
+  margin-bottom: 0;
 }
 </style>

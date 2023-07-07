@@ -41,12 +41,6 @@
           color="orange"
           class="home-btn"
         ></q-btn>
-        <q-btn
-          @click="goToReporte"
-          label="Reporte de Calificacion"
-          color="primary"
-          class="report-btn"
-        ></q-btn>
       </q-card-actions>
     </q-card>
   </div>
@@ -98,9 +92,6 @@ export default {
     },
     goToRegresar() {
       this.$router.push("/MostrarCliente");
-    },
-    goToReporte() {
-      this.$router.push("/ReporteCalificacion");
     },
   },
 };
