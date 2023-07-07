@@ -257,6 +257,7 @@ export default {
         const detallehabitacion = {
           idReserva: this.habitacionesResult.idReserva,
           idHabitacion: this.habitacionesResult[index],
+          subtotal: this.habitacion.precio,
         };
 
         axios
@@ -265,6 +266,7 @@ export default {
             this.mostrarMensaje();
             this.idReserva = detallehabitacion.idReserva;
             this.idHabitacion = detallehabitacion.idHabitacion;
+            this.subtotal = detalleHabitacion.subtotal;
             console.log("Se creo el detalle habitacion");
           })
           .catch((error) => {
@@ -281,6 +283,7 @@ export default {
         const detalleservicio = {
           idReserva: this.serviciosResult.idServicio,
           idServicio: this.serviciosResult[index],
+          subTotal: this.servicio.precio,
         };
 
         axios
@@ -292,6 +295,7 @@ export default {
             this.mostrarMensaje();
             this.idReserva = detalleservicio.idReserva;
             this.idServicio = detalleservicio.idServicio;
+            this.subTotal = detalleservicio.subTotal;
             console.log("Se creo el detalle servicio");
           })
           .catch((error) => {
@@ -308,6 +312,7 @@ export default {
         const detallesala = {
           idReserva: this.salasResult.idSala,
           idSala: this.salasResult[index],
+          subTotal: this.sala.precio,
         };
 
         axios
@@ -321,6 +326,7 @@ export default {
             this.idSala = detallesala.idSala;
             this.fechaInicio = "";
             this.fechaFin = "";
+            this.subTotal = detallesala.subTotal;
             console.log("Se creo el detalle sala");
           })
           .catch((error) => {
@@ -355,6 +361,7 @@ export default {
         idReserva: this.reservaResult,
         metodoPago: 1,
         estado: 1,
+        montoTotal: this.montoTotal,
       };
 
       axios
@@ -362,6 +369,9 @@ export default {
         .then((response) => {
           // Manejar la respuesta del pago exitoso
           console.log("Pago realizado correctamente");
+          this.detalleHabitacion();
+          this.detalleServicio();
+          this.detalleSala();
           this.$router.push("/confirmacionPago");
         })
         .catch((error) => {
