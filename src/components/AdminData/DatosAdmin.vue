@@ -1,13 +1,14 @@
 <template>
-  <h4 class="text_tittle">Mis Datos Personales:</h4>
-  <h6 class="text_cont">
-    Nombre: {{ userResult.nombre }} {{ userResult.apellido }} <br />
-    Email: {{ userResult.email }} <br />
-    Direccion: {{ userResult.direccion }} <br />
-    Telefono: {{ userResult.telefono }} <br />
-    Puntos: {{ userResult.puntos }} <br />
-    TipoUsuario: {{ nameTipo?.descripcion }}
-  </h6>
+  <div class="containerData" :class="{ 'fade-in': showContainer }">
+    <h4 class="text_tittle">Mis Datos Personales:</h4>
+    <h6 class="text_cont">
+      Nombre: {{ userResult.nombre }} {{ userResult.apellido }} <br />
+      Email: {{ userResult.email }} <br />
+      Direccion: {{ userResult.direccion }} <br />
+      Telefono: {{ userResult.telefono }} <br />
+      TipoUsuario: {{ nameTipo?.descripcion }}
+    </h6>
+  </div>
 </template>
 
 <script>
@@ -21,6 +22,7 @@ export default {
       TipoUsuario: null,
       nameTipo: null,
       prueba: null,
+      showContainer: false,
     };
   },
   created() {
@@ -71,6 +73,12 @@ export default {
       );
     },
   },
+  mounted() {
+    // Agregar una clase para activar la animación después de un breve retraso
+    setTimeout(() => {
+      this.showContainer = true;
+    }, 200);
+  },
 };
 </script>
 
@@ -85,5 +93,15 @@ export default {
   font-family: "Exo";
   margin-left: 20px;
   padding: 5px 5px;
+}
+.containerData {
+  background-color: burlywood;
+  padding: 20px;
+  color: black;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.fade-in {
+  opacity: 1;
 }
 </style>
