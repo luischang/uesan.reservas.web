@@ -355,7 +355,6 @@ export default {
         idReserva: this.reservaResult,
         metodoPago: 1,
         estado: 1,
-        montoTotal: this.montoTotal,
       };
 
       axios
@@ -363,9 +362,6 @@ export default {
         .then((response) => {
           // Manejar la respuesta del pago exitoso
           console.log("Pago realizado correctamente");
-          this.detalleHabitacion();
-          this.detalleServicio();
-          this.detalleSala();
           this.$router.push("/confirmacionPago");
         })
         .catch((error) => {
