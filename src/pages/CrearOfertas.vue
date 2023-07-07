@@ -108,18 +108,37 @@ export default {
         });
     },
     mostrarMensaje() {
-      this.$q.dialog({
-        title: "Oferta creada",
-        message: "La oferta se creó satisfactoriamente",
-        ok: "Aceptar",
-        color: "positive",
-      });
+      this.showNotification(
+        "LA oferta ha sido creada exitosamente",
+        "green",
+        "top",
+        2000
+      );
     },
     goToInicio() {
       this.$router.push("/reportAdmin");
     },
     goToReporte() {
       this.$router.push("/ReporteOfertas");
+    },
+    showNotification: function (message, color, position, timeout) {
+      var notification = document.createElement("div");
+      notification.textContent = message;
+      notification.style.backgroundColor = color;
+      notification.style.color = "#fff";
+      notification.style.padding = "10px";
+      notification.style.borderRadius = "4px";
+      notification.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.15)";
+      notification.style.position = "fixed";
+      notification.style.bottom = position === "bottom" ? "20px" : "";
+      notification.style.top = position === "top" ? "95px" : "";
+      notification.style.left = "50%";
+      notification.style.transform = "translateX(-50%)";
+      notification.style.zIndex = "9999";
+      document.body.appendChild(notification);
+      setTimeout(function () {
+        document.body.removeChild(notification);
+      }, timeout);
     },
   },
 };

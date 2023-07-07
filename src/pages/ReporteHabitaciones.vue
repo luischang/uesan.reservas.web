@@ -29,7 +29,7 @@
               {{ habitacion.estado ? "Disponible" : "No disponible" }}
             </span>
           </td>
-          <td>${{ habitacion.precio }}</td>
+          <td>USD {{ habitacion.precio }}</td>
           <td>{{ habitacion.cant_Camas }}</td>
           <td>{{ habitacion.tipoHabitacion.descripcion }}</td>
         </tr>
