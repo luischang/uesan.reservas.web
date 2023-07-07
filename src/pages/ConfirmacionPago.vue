@@ -65,6 +65,10 @@ export default {
   methods: {
     regresarInicio() {
       this.$router.push("/reservasOrder");
+      localStorage.removeItem("habitacionesSeleccionadas");
+      localStorage.removeItem("IdReservaCreation");
+      localStorage.removeItem("SalaEventosSeleccionadas");
+      localStorage.removeItem("servicioSeleccionado");
     },
   },
 };

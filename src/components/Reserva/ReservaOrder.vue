@@ -235,9 +235,9 @@ export default {
         };
         var url = "http://localhost:5023/api/v1/ReservasOrder/Crear";
 
-        if (this.num_Adultos < 0 || this.num_Ninos < 0) {
+        if (this.num_Adultos <= 0 || this.num_Ninos < 0) {
           this.showNotification(
-            "No se acepta Valores negativos",
+            "No se acepta valores negativos o cero",
             "red",
             "top",
             2000
