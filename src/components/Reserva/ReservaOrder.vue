@@ -219,11 +219,12 @@ export default {
       const fechaFin = this.fecha_Fin;
       if (fechaFin < fechaInicio) {
         this.showNotification(
-          "La fecha fin no puede ser antes que la fecha inicio",
+          "La fecha de inicio no puede ser posterior a la fecha de fin",
           "red",
           "top",
           2000
         );
+        return;
       } else {
         var data = {
           idUsuario: this.userResult.idUsuario,
@@ -235,31 +236,28 @@ export default {
         };
         var url = "http://localhost:5023/api/v1/ReservasOrder/Crear";
 
-        if (this.num_Adultos <= 0 || this.num_Ninos < 0) {
-          this.showNotification(
-            "No se acepta valores negativos o cero",
-            "red",
-            "top",
-            2000
-          );
-          return;
-        }
-        if (this.num_Adultos + this.num_Ninos < 1) {
-          this.showNotification(
-            "Revise la cantidad de Adultos y niños",
-            "red",
-            "top",
-            2000
-          );
-          return;
-        }
         if (this.fecha_Fin == null || this.fecha_Inicio == null) {
           this.showNotification(
-            "No se acepta fechas vacias",
+            "Debe seleccionar un rango de fechas",
             "red",
             "top",
-            2000
+            3000
           );
+          return;
+        }
+
+        if (this.num_Adultos == 0 || this.num_Adultos == null) {
+          this.showNotification(
+            "Debe haber como minimo una persona adulta",
+            "red",
+            "top",
+            3000
+          );
+          return;
+        }
+
+        if (this.num_Adultos < 0 || this.num_Ninos < 0) {
+          this.showNotification("Ingrese valores validos", "red", "top", 3000);
           return;
         }
 
@@ -312,26 +310,26 @@ export default {
         document.body.removeChild(notification);
       }, timeout);
     },
-    validarNumero1() {
-      if (parseInt(this.num_Adultos) <= 0) {
-        this.showNotification(
-          "El numero no puede ser negativo o cero",
-          "red",
-          "top",
-          1000
-        );
-      }
-    },
-    validarNumero2() {
-      if (parseInt(this.num_Ninos) < 0) {
-        this.showNotification(
-          "El numero no puede ser negativo",
-          "red",
-          "top",
-          1000
-        );
-      }
-    },
+    // validarNumero1() {
+    //   if (parseInt(this.num_Adultos) <= 0) {
+    //     this.showNotification(
+    //       "El numero no puede ser negativo o cero",
+    //       "red",
+    //       "top",
+    //       1000
+    //     );
+    //   }
+    // },
+    // validarNumero2() {
+    //   if (parseInt(this.num_Ninos) < 0) {
+    //     this.showNotification(
+    //       "El numero no puede ser negativo",
+    //       "red",
+    //       "top",
+    //       1000
+    //     );
+    //   }
+    // },
     openModal1() {
       this.showModal1 = true;
     },

@@ -262,6 +262,10 @@ export default {
 
       console.log(hasNumber);
       console.log(hasUpperCase);
+      if (this.valid != true) {
+        this.showNotification("Ingrese un correo valido", "red", "top", 3000);
+        return;
+      }
 
       if (!hasNumber || !hasUpperCase) {
         // Mostrar una notificación de error si no cumple con los requisitos
@@ -269,19 +273,11 @@ export default {
           "La contraseña debe contener al menos un número y una letra mayúscula",
           "red",
           "top",
-          2000
+          3000
         );
         return; // Detener el proceso de inicio de sesión
       }
-      if (this.valid != true) {
-        this.showNotification(
-          "Verificar Correo: ___@__.com",
-          "red",
-          "top",
-          2000
-        );
-        return;
-      }
+
       if (this.form.nombre == "") {
         this.showNotification(
           "Verificar nombre, no dejar vacio",
@@ -338,14 +334,14 @@ export default {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // Expresión regular para validar el email
       this.valid = emailPattern.test(this.form.email);
 
-      if (this.valid != true) {
-        this.showNotification(
-          "Verificar Correo: ___@__.com",
-          "red",
-          "top",
-          2000
-        );
-      }
+      // if (this.valid != true) {
+      //   this.showNotification(
+      //     "Verificar Correo: ___@__.com",
+      //     "red",
+      //     "top",
+      //     2000
+      //   );
+      // }
     },
   },
   computed: {},

@@ -286,6 +286,17 @@ export default {
         email: this.email,
         contraseña: this.password,
       };
+      if (this.email == "" || this.password == "") {
+        this.showNotification(
+          "Ingrese sus datos correctamente",
+          "green",
+          "top",
+          3000
+        );
+        return;
+      }
+      //Mensaje: Ingrese sus datos correctamente
+
       axios
         .post(url, data)
         .then((response) => {
@@ -295,7 +306,7 @@ export default {
             "Inicio de sesión correcta",
             "green",
             "top",
-            100
+            3000
           );
           setTimeout(() => {
             // Verificar si el correo electrónico es "@admin"
