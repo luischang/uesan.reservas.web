@@ -93,7 +93,12 @@ export default {
       axios
         .post("http://localhost:5023/api/v1/Ofertas", oferta)
         .then((response) => {
-          this.mostrarMensaje();
+          this.showNotification(
+            "LA oferta ha sido creada exitosamente",
+            "green",
+            "top",
+            2000
+          );
           this.descripcion = "";
           this.descuento = null;
           this.fechaIni = "";
@@ -101,16 +106,18 @@ export default {
           this.estado = true;
         })
         .catch((error) => {
-          this.$q.notify({
-            message: "Error al crear la oferta",
-            color: "negative",
-          });
+          this.showNotification(
+            "LA oferta no ha podido ser creada",
+            "green",
+            "top",
+            2000
+          );
         });
     },
     mostrarMensaje() {
       this.showNotification(
         "LA oferta ha sido creada exitosamente",
-        "green",
+        "red",
         "top",
         2000
       );

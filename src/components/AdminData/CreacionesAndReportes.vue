@@ -3,27 +3,27 @@
 
   <div class="container_underlind">
     <h7 class="style_subtittle">Crear Ofertas</h7>
-    <q-btn class="botonQ" @click="CrearOferta">Registrar</q-btn>
+    <q-btn class="botonQ" @click="CrearOferta">Registrar Oferta</q-btn>
   </div>
 
   <div class="container_underlind">
     <h7 class="style_subtittle">Reporte de Ofertas</h7>
-    <q-btn class="botonQ" @click="ReporOferta">Reportar</q-btn>
+    <q-btn class="botonQ" @click="ReporOferta">Reportar Oferta</q-btn>
   </div>
 
   <div class="container_underlind">
     <h7 class="style_subtittle">Crear Habitaciones</h7>
-    <q-btn class="botonQ" @click="creaHabit">Registrar</q-btn>
+    <q-btn class="botonQ" @click="creaHabit">Registrar Habitacion</q-btn>
   </div>
 
   <div class="container_underlind">
     <h7 class="style_subtittle">Reporte de Habitaciones</h7>
-    <q-btn class="botonQ" @click="ReporHabit">Reportar</q-btn>
+    <q-btn class="botonQ" @click="ReporHabit">Reportar Habitacion</q-btn>
   </div>
 
   <div class="container_underlind">
     <h7 class="style_subtittle">Reporte de Quejas</h7>
-    <q-btn class="botonQ" @click="ReporQuejas">Reportar</q-btn>
+    <q-btn class="botonQ" @click="ReporQuejas">Reportar Quejas</q-btn>
   </div>
 </template>
 

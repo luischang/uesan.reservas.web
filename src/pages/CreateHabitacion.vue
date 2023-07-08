@@ -103,10 +103,16 @@ export default {
         .then((response) => {
           if (response.ok) {
             console.log("Habitación creada exitosamente");
+            this.showNotification(
+              "La habitacion ha sido creada exitosamente",
+              "green",
+              "top",
+              2000
+            );
             // Mostrar mensaje de alerta
-            this.alertMessage =
-              "La creación de la habitación se realizó correctamente!!!";
-            this.showAlert = true;
+            // this.alertMessage =
+            //   "La creación de la habitación se realizó correctamente!!!";
+            // this.showAlert = true;
             // Reiniciar el formulario
             this.habitacion = {
               descripcion: "",
@@ -123,6 +129,12 @@ export default {
             }, 3000);
           } else {
             console.error("Error al crear la habitación");
+            this.showNotification(
+              "Error al crear la habitación",
+              "red",
+              "top",
+              2000
+            );
           }
         })
         .catch((error) => {
@@ -131,6 +143,25 @@ export default {
     },
     regresarInicio() {
       this.$router.push("/reportAdmin");
+    },
+    showNotification: function (message, color, position, timeout) {
+      var notification = document.createElement("div");
+      notification.textContent = message;
+      notification.style.backgroundColor = color;
+      notification.style.color = "#fff";
+      notification.style.padding = "10px";
+      notification.style.borderRadius = "4px";
+      notification.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.15)";
+      notification.style.position = "fixed";
+      notification.style.bottom = position === "bottom" ? "20px" : "";
+      notification.style.top = position === "top" ? "95px" : "";
+      notification.style.left = "50%";
+      notification.style.transform = "translateX(-50%)";
+      notification.style.zIndex = "9999";
+      document.body.appendChild(notification);
+      setTimeout(function () {
+        document.body.removeChild(notification);
+      }, timeout);
     },
   },
 };

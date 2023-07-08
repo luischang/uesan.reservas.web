@@ -198,9 +198,12 @@ export default {
       randomItem: null,
       ofertasResult: null,
       esNumeroInvalido: false,
+      valid1: null,
     };
   },
   created() {
+    const myVariable = localStorage.getItem("habitacionesSeleccionadas");
+    this.valid1 = myVariable;
     const ofertaData = localStorage.getItem("ofertasResult");
     this.ofertasResult = JSON.parse(ofertaData);
     this.getRandomItem();
@@ -217,6 +220,16 @@ export default {
 
       const fechaInicio = this.fecha_Inicio;
       const fechaFin = this.fecha_Fin;
+
+      if (this.myVariable == []) {
+        this.showNotification(
+          "Debe seleccionar una habitacion",
+          "red",
+          "top",
+          2000
+        );
+      }
+
       if (fechaFin < fechaInicio) {
         this.showNotification(
           "La fecha de inicio no puede ser posterior a la fecha de fin",

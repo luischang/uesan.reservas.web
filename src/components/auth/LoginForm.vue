@@ -289,7 +289,7 @@ export default {
       if (this.email == "" || this.password == "") {
         this.showNotification(
           "Ingrese sus datos correctamente",
-          "green",
+          "red",
           "top",
           3000
         );
@@ -318,7 +318,7 @@ export default {
           }, 170);
         })
         .catch((error) => {
-          console.log("Ocurrió un error " + error);
+          console.log("Verificar datos " + error);
           localStorage.removeItem("userResult");
           this.showNotification("Usuario no registrado", "red", "top", 2000);
         });
