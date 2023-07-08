@@ -184,28 +184,31 @@ export default {
     this.getHabitacionesByIds();
     console.log("Estas son las habitaciones" + this.habitaciones);
     console.log("Estas son los servicios" + this.serviciosResult);
-    console.log("Total:" + this.total);
+    console.log("Total:" + this.montoTotal);
     this.getServiciosByIds();
     this.getSalasByIds();
+
     this.calcularMontoTotal();
   },
 
   methods: {
     // Resto de los métodos existentes
     getHabitacionesByIds() {
-      Promise.all(
-        this.habitacionesResult.map((id) => this.getHabitacionById(id))
-      )
-        .then((habitacione) => {
-          this.habitaciones = habitacione;
-          this.total = this.total + this.habitaciones.precio;
-          this.isLoading = false;
-          this.calcularMontoTotal();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading = false;
-        });
+      if (this.habitacionesResult != null) {
+        Promise.all(
+          this.habitacionesResult.map((id) => this.getHabitacionById(id))
+        )
+          .then((habitacione) => {
+            this.habitaciones = habitacione;
+            this.total = this.total + this.habitaciones.precio;
+            this.isLoading = false;
+            this.calcularMontoTotal();
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading = false;
+          });
+      }
     },
     getHabitacionById(id) {
       return fetch(`http://localhost:5023/api/Habitacion/${id}`).then(
@@ -214,17 +217,22 @@ export default {
     },
 
     getServiciosByIds() {
-      Promise.all(this.serviciosResult.map((id) => this.getServicioById(id)))
-        .then((servici) => {
-          this.servicios = servici;
-          this.total = this.total + this.servicios.precio;
-          this.isLoading2 = false;
-          this.calcularMontoTotal();
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading2 = false;
-        });
+      if (
+        this.serviciosResult != null &&
+        (this.habitacionesResult != null || this.salasResult != null)
+      ) {
+        Promise.all(this.serviciosResult.map((id) => this.getServicioById(id)))
+          .then((servici) => {
+            this.servicios = servici;
+            this.total = this.total + this.servicios.precio;
+            this.isLoading2 = false;
+            this.calcularMontoTotal();
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading2 = false;
+          });
+      }
     },
     getServicioById(id) {
       return fetch(`http://localhost:5023/api/v1/Servicio/${id}`).then(
@@ -233,18 +241,20 @@ export default {
     },
 
     getSalasByIds() {
-      Promise.all(this.salasResult.map((id) => this.getSalaById(id)))
-        .then((sal) => {
-          this.salas = sal;
-          this.total = this.total + this.salas.precio;
-          this.isLoading3 = false;
-          this.calcularMontoTotal();
-          console.log("Estas son los ids recibidos" + this.salasResult);
-        })
-        .catch((error) => {
-          console.error(error);
-          this.isLoading3 = false;
-        });
+      if (this.salasResult != null) {
+        Promise.all(this.salasResult.map((id) => this.getSalaById(id)))
+          .then((sal) => {
+            this.salas = sal;
+            this.total = this.total + this.salas.precio;
+            this.isLoading3 = false;
+            this.calcularMontoTotal();
+            console.log("Estas son los ids recibidos" + this.salasResult);
+          })
+          .catch((error) => {
+            console.error(error);
+            this.isLoading3 = false;
+          });
+      }
     },
     getSalaById(id) {
       return fetch(
@@ -255,10 +265,17 @@ export default {
     detalleHabitacion() {
       for (let index = 0; index < this.habitacionesResult.length; index++) {
         const detallehabitacion = {
-          idReserva: this.habitacionesResult.idReserva,
+          idReserva: this.reservaResult,
           idHabitacion: this.habitacionesResult[index],
         };
-
+        console.log(
+          "id de la habitacion numero :" +
+            (index + 1) +
+            " es :" +
+            detallehabitacion.idHabitacion +
+            " con la reserva :" +
+            detallehabitacion.idReserva
+        );
         axios
           .post("http://localhost:5023/api/DetalleReserva", detallehabitacion)
           .then((response) => {
@@ -279,10 +296,17 @@ export default {
     detalleServicio() {
       for (let index = 0; index < this.serviciosResult.length; index++) {
         const detalleservicio = {
-          idReserva: this.serviciosResult.idServicio,
+          idReserva: this.reservaResult,
           idServicio: this.serviciosResult[index],
         };
-
+        console.log(
+          "id del servicio numero :" +
+            (index + 1) +
+            " es  :" +
+            detalleservicio.idServicio +
+            " con la reserva :" +
+            detalleservicio.idReserva
+        );
         axios
           .post(
             "http://localhost:5023/api/v1/DetalleServicios",
@@ -306,10 +330,17 @@ export default {
     detalleSala() {
       for (let index = 0; index < this.salasResult.length; index++) {
         const detallesala = {
-          idReserva: this.salasResult.idSala,
-          idSala: this.salasResult[index],
+          idReserva: this.reservaResult,
+          idSalaEvento: this.salasResult[index],
         };
-
+        console.log(
+          "id de la sala numero :" +
+            (index + 1) +
+            " es :" +
+            detallesala.idSala +
+            " con la reserva :" +
+            detallesala.idReserva
+        );
         axios
           .post(
             "http://localhost:5023/api/DetalleSalaDeEventos/Crear",
@@ -318,7 +349,7 @@ export default {
           .then((response) => {
             this.mostrarMensaje();
             this.idReserva = detallesala.idReserva;
-            this.idSala = detallesala.idSala;
+            this.idSalaEvento = detallesala.idSala;
             this.fechaInicio = "";
             this.fechaFin = "";
             console.log("Se creo el detalle sala");
@@ -349,12 +380,19 @@ export default {
       this.montoTotal = total;
     },
     realizarPago() {
+      if (this.habitacionesResult != null) {
+        this.detalleHabitacion();
+      }
+      if (this.salasResult != null) {
+        this.detalleSala();
+      }
+      if (this.serviciosResult != null) {
+        this.detalleServicio();
+      }
       const url = "http://localhost:5023/api/v1/Pago";
-
       const data = {
         idReserva: this.reservaResult,
-        metodoPago: 1,
-        estado: 1,
+        montoTotal: this.montoTotal,
       };
 
       axios
