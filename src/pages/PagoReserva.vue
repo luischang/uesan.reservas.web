@@ -400,13 +400,14 @@ export default {
         .then((response) => {
           // Manejar la respuesta del pago exitoso
           console.log("Pago realizado correctamente");
+
+          this.cambiarStatus();
           this.$router.push("/confirmacionPago");
         })
         .catch((error) => {
           // Manejar el error del pago
           console.error("Ocurrió un error durante el pago:", error);
         });
-      this.cambiarStatus();
     },
     cambiarStatus() {
       const list = localStorage.getItem("habitacionesSeleccionadas");
