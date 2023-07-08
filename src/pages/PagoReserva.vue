@@ -400,8 +400,10 @@ export default {
         .then((response) => {
           // Manejar la respuesta del pago exitoso
           console.log("Pago realizado correctamente");
-
-          this.cambiarStatus();
+          this.cambiarStatus1();
+          if(Array.isArray(this.salasResult) && this.salasResult.length != 0){
+            this.cambiarStatus2();
+          };
           this.$router.push("/confirmacionPago");
         })
         .catch((error) => {
@@ -409,19 +411,26 @@ export default {
           console.error("Ocurrió un error durante el pago:", error);
         });
     },
-    cambiarStatus() {
+    cambiarStatus1() {
+
       const list = localStorage.getItem("habitacionesSeleccionadas");
-      const parsedList = JSON.parse(list);
-      parsedList.forEach((item) => {
+      if (list && list !== null && list !== undefined){
+        const parsedList = JSON.parse(list);
+        parsedList.forEach((item) => {
         this.deleteHabitacion(item);
       });
+      };
 
+    },
+    cambiarStatus2(){
       const list2 = localStorage.getItem("SalaEventosSeleccionadas");
-      const parsedList2 = JSON.parse(list2);
-      parsedList2.forEach((item2) => {
+      if (list2 && list2 !== null && list2 !== undefined){
+        const parsedList2 = JSON.parse(list2);
+        parsedList2.forEach((item2) => {
         this.deleteSala(item2);
         console.log(item2);
       });
+      };
     },
     deleteHabitacion(id) {
       axios

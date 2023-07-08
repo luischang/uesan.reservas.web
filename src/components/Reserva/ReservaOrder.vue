@@ -198,15 +198,34 @@ export default {
       randomItem: null,
       ofertasResult: null,
       esNumeroInvalido: false,
-      valid1: null,
+      valid1: [],
+      valid2: [],
+      La1: null,
     };
   },
-  created() {
+  mounted() {
+    setInterval(() => {
     const myVariable = localStorage.getItem("habitacionesSeleccionadas");
-    this.valid1 = myVariable;
+    try {
+      this.valid1 = JSON.parse(myVariable);
+    } catch (error) {
+      this.valid1 = [];
+    }
+    }, 2);
+
+  setInterval(() => {
+    const myVariable2 = localStorage.getItem("servicioSeleccionado");
+    try {
+      this.valid2 = JSON.parse(myVariable2);
+    } catch (error) {
+      this.valid2 = [];
+    }
+   }, 2);
+
     const ofertaData = localStorage.getItem("ofertasResult");
     this.ofertasResult = JSON.parse(ofertaData);
     this.getRandomItem();
+
   },
   methods: {
     irAPaginaPago() {
@@ -220,15 +239,6 @@ export default {
 
       const fechaInicio = this.fecha_Inicio;
       const fechaFin = this.fecha_Fin;
-
-      if (this.myVariable == []) {
-        this.showNotification(
-          "Debe seleccionar una habitacion",
-          "red",
-          "top",
-          2000
-        );
-      }
 
       if (fechaFin < fechaInicio) {
         this.showNotification(
@@ -274,6 +284,24 @@ export default {
           return;
         }
 
+        if (Array.isArray(this.valid1) && this.valid1.length === 0) {
+         this.showNotification(
+           "Debe seleccionar al menos una habitacion",
+           "red",
+           "top",
+           3000
+         );
+         return;
+        }
+        if (Array.isArray(this.valid2) && this.valid2.length === 0) {
+        this.showNotification(
+        "Debe seleccionar al menos un servicio adicional",
+        "red",
+        "top",
+        3000
+         );
+        return;
+        }
         axios
           .post(url, data)
           .then((response) => {

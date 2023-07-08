@@ -64,11 +64,15 @@
 export default {
   methods: {
     regresarInicio() {
+      const arrayVacio = [];
+      localStorage.setItem("habitacionesSeleccionadas", JSON.stringify(arrayVacio));
+      localStorage.setItem("IdReservaCreation", JSON.stringify(arrayVacio));
+      localStorage.setItem("SalaEventosSeleccionadas", JSON.stringify(arrayVacio));
+      localStorage.setItem("servicioSeleccionado", JSON.stringify(arrayVacio));
+      setTimeout(function() {
+        console.log("Este mensaje se mostrará después de 2 segundos");
+      }, 2000);
       this.$router.push("/reservasOrder");
-      localStorage.removeItem("habitacionesSeleccionadas");
-      localStorage.removeItem("IdReservaCreation");
-      localStorage.removeItem("SalaEventosSeleccionadas");
-      localStorage.removeItem("servicioSeleccionado");
     },
   },
 };

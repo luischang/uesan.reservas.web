@@ -5,7 +5,7 @@
       >Inicio</boton
     >
     <h1 class="center-text animated-text">
-      SITE <span class="underlined animated-text">RESERVAS</span>
+    <span class="underlined animated-text">Reservify</span>
     </h1>
     <div class="login-container animated-container">
       <h2 class="login-title">Bienvenido</h2>

@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="main-toolbar">
-        <q-toolbar-title class="Titleclass"> Site Reservas </q-toolbar-title>
+        <q-toolbar-title class="Titleclass"> Reservify </q-toolbar-title>
         <boton class="custom-btn" @click="inicio">Inicio</boton>
         <boton class="custom-btn" @click="empresa">Empresa</boton>
         <boton class="custom-btn" @click="galeria">Galeria</boton>
@@ -147,8 +147,16 @@ export default defineComponent({
       this.$router.push("mostrarServicios");
     },
     cerrarSesion() {
-      localStorage.clear();
+      const arrayVacio = [];
+      localStorage.setItem("habitacionesSeleccionadas", JSON.stringify(arrayVacio));
+      localStorage.setItem("IdReservaCreation", JSON.stringify(arrayVacio));
+      localStorage.setItem("SalaEventosSeleccionadas", JSON.stringify(arrayVacio));
+      localStorage.setItem("servicioSeleccionado", JSON.stringify(arrayVacio));
+      setTimeout(function() {
+        console.log("Este mensaje se mostrará después de 2 segundos");
+      }, 2000);
       this.$router.push("/");
+      this.userResult = null;
     },
     registroUsuario() {
       if (this.userResult.idTipo == 1) {

@@ -131,6 +131,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: auto; /* o 'scroll' si quieres que siempre se muestre la barra de desplazamiento */
+
 }
 .habitacion {
   display: inline-block;
