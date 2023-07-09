@@ -10,7 +10,7 @@
       <p>¡Gracias por tu reserva! Tu pago ha sido confirmado exitosamente.</p>
       <p>¡Esperamos que disfrutes tu estadía!</p>
       <q-btn
-        color="primary"
+      color="orange"
         label="Regresar al Inicio"
         @click="regresarInicio"
         class="return-btn"

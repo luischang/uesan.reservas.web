@@ -31,13 +31,15 @@
     <button @click="set_reserva()" class="btn-reservar" type="submit">
       Reservar
     </button>
+
+
   </div>
   <div class="group_selection">
     <div>
       <h5 class="group_text">Seleccionar <br />habitación</h5>
       <bottom @click="openModal1">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
+          src="/src/assets/cama.png"
           alt="CHECK"
           class="img_button"
         />
@@ -51,7 +53,7 @@
       <h5 class="group_text">Seleccionar <br />servicios adicionales</h5>
       <bottom @click="openModal2">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
+          src="/src/assets/service.png"
           alt="CHECK"
           class="img_button"
         />
@@ -65,7 +67,7 @@
       <h5 class="group_text">Seleccionar <br />sala de eventos</h5>
       <bottom @click="openModal3">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
+          src="/src/assets/evento.png"
           alt="CHECK"
           class="img_button"
         />
@@ -79,7 +81,7 @@
       <h5 class="group_text">Ver oferta <br />agregada</h5>
       <bottom @click="openModal4">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/2636/2636428.png"
+          src="/src/assets/ofertaInfo.png"
           alt="CHECK"
           class="img_button"
         />
@@ -153,8 +155,9 @@ input {
   border: none;
   cursor: pointer;
   position: absolute;
-  top: 50px;
-  right: -190px;
+  top: 500px;
+  right: 50%;
+  transform: translate(-50%, );
   width: 120px;
   font-family: "Exo";
   font-size: 25px;

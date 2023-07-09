@@ -152,6 +152,7 @@ export default defineComponent({
       localStorage.setItem("IdReservaCreation", JSON.stringify(arrayVacio));
       localStorage.setItem("SalaEventosSeleccionadas", JSON.stringify(arrayVacio));
       localStorage.setItem("servicioSeleccionado", JSON.stringify(arrayVacio));
+      localStorage.removeItem("userResult");
       setTimeout(function() {
         console.log("Este mensaje se mostrará después de 2 segundos");
       }, 2000);
